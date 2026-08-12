@@ -1,0 +1,3419 @@
+:root{
+    --bg: #f7f4ef;
+    --ink: #1d1d1d;
+    --gold-1: #7a5a1f;
+    --gold-2: #b88a2e;
+    --gold-3: #f1d889;
+    --gold-4: #fff3c4;
+    --gold-5: #a5761f;
+    --gold-gradient-deep: linear-gradient(135deg, #5f4317 0%, #86601f 24%, #6f4f18 48%, #a67a2a 66%, #7a561a 100%);
+  
+    /* OLIVO */
+    --beige: #9f8451;
+    --beige-dark: #7e704c;
+    --beige-soft: rgba(85,107,47,.12);
+  
+    --line: rgba(29,29,29,.18);
+    --card: rgba(255,255,255,.65);
+
+    --title: "Cinzel", serif;
+    --cursive: "Pinyon Script", cursive;
+    --text:"Playfair", serif;
+  }
+  
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    color:var(--ink);
+  }
+  
+  .cover{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+    background: linear-gradient(rgba(247, 244, 239, 0.4), rgba(247, 244, 239, 0.4)), url("images/envelope.png") center/cover no-repeat;
+  }
+  
+  .cover-inner{
+    max-width:none;
+    width:100%;
+    height:100%;
+    display:grid;
+    place-items:center;
+  }
+  
+  .mono{
+    letter-spacing:.35em;
+    font-weight:600;
+    color:var(--beige);
+    text-transform:uppercase;
+    font-size:14px;
+  }
+  
+  .couple{
+    margin:12px 0 6px;
+    font-size:24px;
+    font-weight:500;
+    font-family: var(--title);
+    letter-spacing: 0.02em;
+    background: linear-gradient(135deg, #6f5a33 0%, #9f8451 40%, #d2bb8a 68%, #8d7244 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 1px 0 rgba(255, 243, 214, 0.25), 0 2px 8px rgba(120, 92, 45, 0.14);
+  }
+
+  .couple.gold-champagne{
+    background: linear-gradient(135deg, #8b6a3e 0%, #c9a26a 24%, #fff2df 48%, #e8c997 66%, #b38954 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 1px 0 rgba(255, 245, 228, 0.52), 0 4px 12px rgba(170, 132, 76, 0.2);
+  }
+
+  .couple.gold-classic{
+    background: linear-gradient(135deg, var(--gold-1) 0%, var(--gold-2) 22%, var(--gold-4) 48%, var(--gold-3) 62%, var(--gold-5) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 1px 0 rgba(255, 246, 210, 0.45), 0 4px 14px rgba(160, 120, 28, 0.22);
+  }
+
+  .couple.gold-matte{
+    background: linear-gradient(135deg, #6f5a33 0%, #9f8451 40%, #d2bb8a 68%, #8d7244 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 1px 0 rgba(255, 243, 214, 0.25), 0 2px 8px rgba(120, 92, 45, 0.14);
+  }
+  
+  .amp{color:var(--beige)}
+  
+  .tag{
+    margin:0 0 18px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    font-size:15px;
+    color:rgba(29,29,29,.7);
+    font-family: var(--title);
+  }
+  
+  .envelope-container,
+  #envelope{
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+
+  #envelope-top,
+  #envelope-bottom,
+  #seal{
+    position: absolute;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  #envelope-top,
+  #envelope-bottom{
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .envelope-panel{
+    background: #f6efe5;
+  }
+
+  .envelope-panel__image{
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+  }
+
+  #envelope-top{
+    top: 0;
+    height: 50vh;
+    border-bottom: 1px solid rgba(125, 91, 42, .14);
+    box-shadow: 0 10px 18px rgba(29,29,29,.08);
+    transform-origin: center bottom;
+    z-index: 1;
+    transition: transform 1.35s cubic-bezier(.22,1,.36,1), opacity .55s ease;
+  }
+
+  #envelope-bottom{
+    inset: auto 0 0;
+    height: 50vh;
+    border-top: 1px solid rgba(125, 91, 42, .14);
+    z-index: 0;
+    transition: transform 1.35s cubic-bezier(.22,1,.36,1), opacity .55s ease;
+  }
+
+  #seal{
+    top: 50%;
+    left: 50%;
+    width: clamp(92px, 18vw, 124px);
+    height: clamp(92px, 18vw, 124px);
+    transform: translate(-50%, -50%);
+    border: 0;
+    padding: 0;
+    border-radius: 50%;
+    appearance: none;
+    -webkit-appearance: none;
+    background: rgba(255,255,255,.96);
+    cursor: pointer;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    pointer-events: auto;
+    transition: transform .28s ease, opacity .45s ease, filter .28s ease;
+  }
+
+  #seal span{
+    margin: 0;
+    font-family: var(--title);
+    font-size: clamp(36px, 5.6vw, 52px);
+    font-weight: 600;
+    background: linear-gradient(135deg, #8b6a3e 0%, #c9a26a 24%, #8d7244 48%, #e8c997 66%, #b38954 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: none;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  #seal:hover{
+    animation-play-state: paused;
+    transform: translate(-50%, -52%) scale(1.03);
+    filter: brightness(1.04);
+  }
+
+  #seal:focus-visible{
+    animation-play-state: paused;
+    outline: 3px solid rgba(184,138,46,.65);
+    outline-offset: 4px;
+    transform: translate(-50%, -52%) scale(1.03);
+  }
+
+  #seal:active{
+    animation-play-state: paused;
+    transform: translate(-50%, -48%) scale(.97);
+  }
+
+  #seal:disabled{
+    cursor: default;
+  }
+
+  #envelope:not(.is-opening) #seal{
+    animation: sealPrompt 3.1s ease-in-out infinite;
+  }
+
+  #envelope.is-opening #envelope-top{
+    transform: translateY(-100%);
+    opacity: .9;
+  }
+
+  #envelope.is-opening #envelope-bottom{
+    transform: translateY(100%);
+  }
+
+  #envelope.is-opening #seal{
+    transform: translate(-50%, -50%) scale(.72);
+    opacity: 0;
+  }
+
+  .cover.is-opening{
+    pointer-events: none;
+  }
+
+  @keyframes sealPrompt{
+    0%, 100% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -54%) scale(1.04); }
+  }
+
+  @media (max-width: 420px){
+    #seal{
+      width: 88px;
+      height: 88px;
+    }
+
+    #seal span{
+      font-size: 34px;
+    }
+  }
+  
+  .guest-card{
+    margin:18px auto 16px;
+    width:min(420px, 92vw);
+    border:1px solid var(--line);
+    background:var(--card);
+    padding:14px 14px;
+    backdrop-filter: blur(6px);
+  }
+  
+  .guest-line{
+    font-weight:600;
+    letter-spacing:.05em;
+    margin-bottom:6px;
+    font-family: var(--cursive);
+    font-size: 30px;
+  }
+  
+  .guest-sub{
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:.18em;
+    color:rgba(29,29,29,.7);
+    font-family: var(--title);
+    font-size: 15px;
+  }
+  
+  .guest-seats{
+    margin-top:6px;
+    font-size:14px;
+    color:var(--beige-dark);
+    font-family: var(--text);
+    font-size: 20px;
+    font-style: italic;
+  }
+  
+  .btn-primary{
+    border:none;
+    padding:12px 18px;
+    background:var(--beige);
+    color:white;
+    font-family:var(--title);
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    font-size:12px;
+    cursor:pointer;
+    transition:.25s ease;
+    box-shadow: #1d1d1d;
+  }
+a{
+    text-decoration:none;  
+  }
+  .btn-primary:hover{background:var(--beige-dark)}
+  .btn-primary:disabled{opacity:.6;cursor:not-allowed}
+  
+  .scroll-hint{
+    position:absolute;
+    bottom:14px;
+    width:100%;
+    font-size:11px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:rgba(29,29,29,.55);
+  }
+  
+  .invitation{display:none}
+  .invitation.is-open{display:block}
+
+.music-bubble{
+    position: fixed;
+    right: 18px;
+    bottom: 20px;
+    z-index: 50;
+    width: 48px;
+    height: 48px;
+    border: 1px solid rgba(0,0,0,.48);
+    border-radius: 999px;
+    background: rgba(255,255,255,.78);
+    color: #000;
+    box-shadow: 0 10px 24px rgba(29,29,29,.08);
+    backdrop-filter: blur(5px);
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    font-size: 15px;
+    transition: transform .25s ease, box-shadow .25s ease, opacity .25s ease;
+  }
+
+  .music-bubble:hover{
+    transform: translateY(-3px) rotateX(5deg) rotateY(-5deg) scale(1.02);
+    box-shadow: 0 14px 28px rgba(29,29,29,.1);
+  }
+
+  .music-bubble.is-playing{
+    animation: musicParallax 3.2s ease-in-out infinite;
+  }
+
+.music-bubble[hidden]{
+    display: none;
+  }
+
+.photo--bw {
+  filter: grayscale(1);
+}
+
+.photo-text--hero h1,
+.photo-text--hero h2 {
+  text-shadow: none;
+  background: linear-gradient(135deg, #000000 0%, #111111 24%, #2a2a2a 48%, #0f0f0f 66%, #000000 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.photo-text--hero h1 {
+  font-size: 40px;
+  margin-top: -250px;
+  margin-bottom: 12px;
+}
+
+.photo-text--hero .hero-and {
+  font-size: 30px;
+}
+
+.photo-text--hero h2 {
+  font-size: 30px;
+  margin-top: 0;
+}
+
+.photo-section--countdown .countdown {
+  background: transparent;
+  margin-top: -10px;
+  gap: 22px;
+  padding: 0;
+  align-items: flex-start;
+}
+
+.photo-section--countdown .photo-text {
+  transform: translateY(-20px);
+}
+
+.photo-section--countdown .photo-container {
+  position: relative;
+}
+
+.photo-section--countdown .photo-container::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0.48) 100%);
+  pointer-events: none;
+}
+
+.photo-section--countdown .photo-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.04) 48%, rgba(255, 255, 255, 0) 72%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.photo-section--countdown .title {
+  margin-top: -150px;
+  font-size: 35px;
+  margin-bottom: 18px;
+  text-shadow: none;
+  background: linear-gradient(135deg, #000000 0%, #111111 24%, #2a2a2a 48%, #0f0f0f 66%, #000000 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.photo-section--countdown .photo-text > p {
+  margin: -10px auto 0;
+  max-width: 680px;
+  font-size: 20px;
+  line-height: 1.4;
+  text-shadow: none;
+  background: linear-gradient(135deg, #000000 0%, #111111 24%, #2a2a2a 48%, #0f0f0f 66%, #000000 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.photo-section--countdown .unit {
+  width: auto;
+  height: auto;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  gap: 8px;
+}
+
+.photo-section--countdown .number,
+.photo-section--countdown .label {
+  color: #000;
+  text-shadow: none;
+  font-style: normal;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.photo-section--countdown .label {
+  margin-top: 0;
+  font-size: 11px;
+  letter-spacing: .18em;
+}
+
+.photo-section--countdown .number {
+  font-size: clamp(42px, 6vw, 72px);
+  line-height: 1;
+}
+
+.countdown-calendar-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin-top: 24px;
+  padding: 10px 18px;
+  border: 1px solid rgba(0, 0, 0, 0.24);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.28);
+  color: #000;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(3px);
+  text-decoration: none;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  transition: transform .25s ease, box-shadow .25s ease, opacity .25s ease;
+}
+
+.countdown-calendar-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+}
+
+.contenedor-play .texto-play,
+.contenedor-play .time-display {
+  text-shadow: none;
+  background: linear-gradient(135deg, #8b6a3e 0%, #c9a26a 24%, #fff2df 48%, #e8c997 66%, #b38954 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+#playPauseButton {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  padding: 0;
+}
+
+#iconoPlayPause {
+  background: linear-gradient(135deg, #8b6a3e 0%, #c9a26a 24%, #fff2df 48%, #e8c997 66%, #b38954 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.time-display {
+  font-size: 20px;
+}
+
+.countdown-calendar-btn span {
+  background: linear-gradient(135deg, #000000 0%, #111111 24%, #2a2a2a 48%, #0f0f0f 66%, #000000 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.itinerary-item h2,
+.dresscode-section h2 {
+  text-shadow: none;
+}
+
+.gifts-section {
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.gallery-section {
+  background-color: transparent;
+}
+
+.gifts-section .gifts-strong {
+  max-width: 780px;
+  margin: 10px auto 0;
+  color: #000;
+}
+
+.details {
+  width: min(460px, 88vw);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 20px;
+  padding: 40px 28px 26px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.16);
+  text-align: center;
+}
+
+.details[open] {
+  display: block;
+}
+
+.details::backdrop {
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(3px);
+}
+
+.details-copy-block {
+  white-space: pre-line;
+  font-family: var(--text);
+  font-size: 15px;
+  line-height: 1.8;
+  color: #000;
+  text-align: center;
+  margin: 8px auto 24px;
+}
+
+.details-close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #000;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: none;
+}
+
+.details button,
+.directions-button,
+.gifts-section button,
+.playlist-section button,
+.rsvp-section button,
+.wishes-section button,
+.btn-venue,
+.section-link,
+.weather-source {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0 16px;
+  border: 1px solid rgba(201, 162, 106, 0.5);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.46);
+  text-decoration: none;
+  text-transform: uppercase;
+  font-family: var(--title);
+  font-size: 12px;
+  letter-spacing: .12em;
+  font-style: normal;
+  font-weight: 600;
+  color: #c9a26a;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(2px);
+  transition: transform .25s ease, box-shadow .25s ease, background .25s ease, opacity .25s ease;
+}
+
+.details button {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.details button:hover,
+.directions-button:hover,
+.gifts-section button:hover,
+.playlist-section button:hover,
+.rsvp-section button:hover,
+.wishes-section button:hover,
+.btn-venue:hover,
+.section-link:hover,
+.weather-source:hover {
+  background: rgba(255, 255, 255, 0.62);
+  border-color: rgba(201, 162, 106, 0.72);
+  color: #c9a26a;
+  transform: translateY(-1px);
+  opacity: 1;
+}
+
+.weather-source {
+  text-decoration: none;
+}
+
+.itinerary-section,
+.playlist-section,
+.gifts-section,
+.hotel-section,
+.dresscode-section,
+#weatherSection,
+.gallery-section,
+.rsvp-section,
+.wishes-section,
+.nochild-section {
+  padding: 34px 22px 40px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.itinerary-item,
+.playlist-section,
+.gifts-section,
+.hotel-section,
+.dresscode-section,
+#weatherSection,
+.gallery-section,
+.rsvp-section,
+.wishes-section,
+.nochild-section {
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.itinerary-item + .itinerary-item {
+  margin-top: 34px;
+  padding-top: 34px;
+  border-top: 0;
+}
+
+.itinerary-item h2,
+.gifts-section h2,
+.hotel-section h2,
+.dresscode-section h2,
+#weatherSection h3 {
+  margin: 12px 0 10px;
+  font-size: 32px;
+  line-height: 1.08;
+  letter-spacing: .01em;
+}
+
+.hotel-info-box {
+  max-width: 680px;
+  margin: 10px auto 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.hotel-intro,
+.hotel-address,
+.hotel-distance,
+.hotel-description {
+  margin: 0;
+}
+
+.hotel-address,
+.hotel-distance,
+.hotel-description {
+  margin-top: 10px;
+}
+
+.hotel-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.hotel-toggle {
+  min-width: 220px;
+}
+
+.hotel-selector {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.hotel-dot {
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  border: 1px solid rgba(29, 29, 29, 0.24);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+}
+
+.hotel-dot.is-active {
+  background: #426031;
+  border-color: #426031;
+}
+
+.itinerary-item > p,
+.gifts-section .gifts-strong,
+.hotel-intro,
+.hotel-distance,
+.dresscode-section .venue-title,
+.dresscode-section .dress-note {
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.itinerary-item > p {
+  margin-top: 4px;
+  margin-bottom: 0;
+  padding: 0;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: oblique;
+  font-size: 18px;
+  color: #000;
+  text-align: center;
+}
+
+.hotel-intro,
+.hotel-distance {
+  padding: 0;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: oblique;
+  color: #000;
+  text-align: center;
+}
+
+.hotel-intro {
+  font-size: 25px !important;
+  font-weight: 700 !important;
+}
+
+.hotel-distance {
+  font-size: 18px;
+}
+
+.itinerary-details {
+  margin-top: 14px;
+}
+
+.time-location {
+  gap: 6px;
+  margin: 4px 0 10px;
+  flex-wrap: wrap;
+}
+
+.time-location .date,
+.time-location .separator,
+.time-location .time {
+  font-size: 18px;
+  color: #000;
+  font-family: var(--title);
+  letter-spacing: .06em;
+}
+
+.location {
+  margin: 0 auto;
+  max-width: 460px;
+  font-family: var(--text);
+  font-size: 15px;
+  line-height: 1.55;
+  color: rgba(0, 0, 0, 0.68);
+}
+
+.hotel-description {
+  margin: 0 auto;
+  max-width: 460px;
+  font-family: var(--text);
+  font-size: 13px !important;
+  line-height: 1.55;
+  color: rgba(0, 0, 0, 0.68);
+  font-style: normal !important;
+}
+
+.wishes-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.wishes-section > button,
+.wishes-section .wish-form-panel,
+.wishes-section .wishes-list {
+  align-self: center;
+}
+
+.hotel-address {
+  margin: 0 auto;
+  max-width: 460px;
+  font-size: 15px !important;
+  color: #000 !important;
+  font-family: var(--title) !important;
+  letter-spacing: .06em !important;
+  line-height: 1.45 !important;
+  font-style: normal !important;
+  font-weight: 400 !important;
+}
+
+.lord-icon-style {
+  width: 150px;
+  height: 150px;
+}
+
+.photo-full {
+  position: relative;
+  z-index: 0;
+}
+
+.photo-full img {
+  display: block;
+  pointer-events: none;
+}
+
+.gifts-section h2,
+.dresscode-section h2 {
+  margin-bottom: 12px;
+}
+
+.gifts-section .gifts-strong,
+.dresscode-section .dress-note {
+  font-family: var(--text);
+  font-size: 20px;
+  line-height: 1.65;
+  color: #000;
+}
+
+.gifts-section .container {
+  padding: 14px 0 0;
+  display: flex;
+  justify-content: center;
+}
+
+.gifts-section > p:last-of-type {
+  margin-top: 14px;
+  font-family: var(--title);
+  font-size: 10px;
+  color: #000;
+}
+
+.dresscode-section .venue-title {
+  margin-top: 4px;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: oblique;
+  font-size: 18px;
+  color: #000;
+}
+
+.dresscode-section .dress-note {
+  margin-top: 8px;
+}
+
+.dresscode-section .btn-venue {
+  margin: 12px 4px 0;
+}
+
+.playlist-section,
+.dresscode-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.playlist-section p,
+.dresscode-section .dress-note,
+.dresscode-section .venue-title {
+  text-align: center;
+}
+
+.playlist-section .section-link,
+.dresscode-section .section-link {
+  align-self: center;
+}
+
+.gifts-section button,
+.details button,
+#btnConfirmarRsvp,
+#btnRsvpNo {
+  background: rgba(255, 255, 255, 0.46);
+  color: #426031;
+  border-color: rgba(66, 96, 49, 0.72);
+}
+
+#btnRsvpSi {
+  background: #426031;
+  color: #fff;
+  border-color: #426031;
+}
+
+#btnRsvpSi:hover {
+  background: #426031;
+  color: #fff;
+  border-color: #426031;
+}
+
+.rsvp-actions {
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.rsvp-btn {
+  flex: initial;
+}
+
+.quote-section p,
+.guest-section p,
+.invitation-info-section p,
+.gifts-section p,
+.rsvp-section p,
+.playlist-section p,
+.dresscode-section p,
+.nochild-section p,
+.qr-container p {
+  font-size: 20px;
+}
+
+.section-separator {
+  max-width: 680px;
+  margin: 18px auto;
+  padding: 0 22px;
+}
+
+.section-separator img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  .itinerary-section,
+  .playlist-section,
+  .gifts-section,
+  .dresscode-section,
+  #weatherSection,
+  .gallery-section,
+  .rsvp-section,
+  .wishes-section,
+  .nochild-section {
+    padding: 30px 18px 34px;
+  }
+
+  .itinerary-item + .itinerary-item {
+    margin-top: 28px;
+    padding-top: 28px;
+  }
+
+  .itinerary-item h2,
+  .gifts-section h2,
+  .dresscode-section h2,
+  #weatherSection h3 {
+    font-size: 28px;
+    margin: 10px 0 8px;
+  }
+
+  .itinerary-item > p,
+  .dresscode-section .venue-title {
+    font-size: 18px;
+  }
+
+  .gifts-section .gifts-strong,
+  .dresscode-section .dress-note {
+    font-size: 18px;
+    line-height: 1.6;
+  }
+
+  .time-location .date,
+  .time-location .separator,
+  .time-location .time {
+    font-size: 18px;
+  }
+
+  .location {
+    max-width: 340px;
+    font-size: 14px;
+  }
+
+  .lord-icon-style {
+    width: 150px;
+    height: 150px;
+  }
+
+  .details button,
+  .directions-button,
+  .gifts-section button,
+  .playlist-section button,
+  .rsvp-section button,
+  .wishes-section button,
+  .btn-venue,
+  .section-link,
+  .weather-source {
+    width: auto;
+    max-width: 100%;
+    font-size: 11px;
+    letter-spacing: .1em;
+  }
+}
+
+
+  @keyframes musicParallax{
+    0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+    50% { transform: translate3d(-1px, -4px, 0) rotate(-2deg); }
+  }
+
+  @media (max-width: 768px){
+    .music-bubble{
+      right: 14px;
+      bottom: 16px;
+      width: 46px;
+      height: 46px;
+      font-size: 14px;
+    }
+  }
+
+  .hero-photo{
+    height:100vh;
+    position:relative;
+    background:#111;
+    overflow:hidden;
+  }
+  .hero-photo::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:url("images/FOTOINI.jpeg") center/cover no-repeat;
+    filter:grayscale(100%) contrast(1.08) brightness(.92);
+    transform:scale(1.01);
+  }
+  .hero-overlay{
+    position:absolute; inset:0;
+    display:flex;
+    align-items:flex-start;
+    justify-content:center;
+    padding-top:26px;
+  }
+  .hero-mono{color:white}
+  /* ================= TRUE LOVE DORADO ================= */
+
+.reveal-gold {
+    font-family: var(--script);
+    font-size: 50px;
+    margin: 6px 0;
+    /* Degradado dorado */
+    background: linear-gradient(135deg, #8b6a3e 0%, #c9a26a 24%, #8d7244 48%, #e8c997 66%, #b38954 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 1px 0 rgba(255, 245, 228, 0.52), 0 4px 12px rgba(170, 132, 76, 0.2);
+    opacity: 0;
+    transform: translateY(20px);
+    filter: blur(4px);
+    transition: all 1.2s ease;
+  }
+  
+  /* Cuando aparece */
+  .reveal-gold.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+  .hero-quote{
+    position: absolute;
+    left: 33%;
+    transform: translateX(-50%);
+    bottom: -44px; /* controla cuánto invade la sección blanca */
+    z-index: 1;
+    text-align: center;
+  }
+  .quote-script{
+    font-family: var(--cursive);
+    font-size:50px;
+    margin:6px 0;
+  }
+  .quote-top,.quote-bottom{margin:0;font-size:14px;letter-spacing:.06em}
+  
+  .names-editorial{
+    padding:44px 18px;
+    text-align:center;
+    background-color: transparent;
+  }
+  
+  .names-grid{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:18px;
+    max-width:720px;
+    margin:0 auto;
+  }
+
+  .intro-text{
+    max-width:500px;
+    margin:0 auto 12px;
+    font-size:19px;
+    color:rgba(29,29,29,.82);
+    font-family: var(--text);
+    line-height:1.45;
+    letter-spacing: 0.01em;
+  }
+
+  .intro-last{
+    font-size:21px;
+    margin-bottom:26px;
+  }
+
+  .names-editorial .intro-verse{
+    margin-top:10px;
+  }
+
+  @media (max-width: 768px){
+    .intro-text{
+      max-width: 92%;
+      font-size: 17px;
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+
+    .intro-last{
+      font-size: 18px;
+    }
+
+    .intro-last{
+      margin-bottom: 20px;
+    }
+
+    .names-editorial .intro-verse{
+      margin-top: 14px;
+    }
+  }
+  
+  .name-lines{
+    font-size:27px;
+    letter-spacing:.18em;
+    line-height:1.6;
+    text-transform:uppercase;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    font-family: var(--title);
+    background: linear-gradient(135deg, #8b6a3e 0%, #c9a26a 24%, #8d7244 48%, #e8c997 66%, #b38954 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .and{
+    font-family: var(--text);
+    font-size: 40px;
+    font-style: italic;
+    text-transform: none;
+        /* Degradado dorado */
+        background:linear-gradient(135deg, #8b6a3e 0%, #c9a26a 24%, #8d7244 48%, #e8c997 66%, #b38954 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+  }
+  
+  .date-vertical{
+    border-left:1px solid var(--line);
+    padding-left:16px;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    letter-spacing:.12em;
+    color:var(--beige);
+    font-weight:600;
+    font-size: 50px;
+    font-family: var(--text);
+    font-style: italic;
+  }
+  
+  .names-text{
+    max-width:560px;
+    margin:18px auto 18px;
+    font-size:20px;
+    color:rgba(29,29,29,.82);
+    font-family: var(--text);
+  }
+  
+  .music-text{
+    margin:0;
+    font-size:25px;
+    color:rgba(29,29,29,.65);
+   font-family: var(--cursive);
+  }
+  
+  .music-btn{
+    margin-top:10px;
+    width:52px;height:52px;
+    border-radius:50%;
+    border:1px solid var(--line);
+    background:transparent;
+    cursor:pointer;
+    font-size:16px;
+    color:var(--beige);
+  }
+  
+#countdown{
+    padding:34px 18px 10px;
+    text-align:center;
+    background-color: #8b6a3e3d;
+    display: flex;
+    flex-direction: column;
+  }
+  .countdown h3{
+    margin:0 0 18px;
+    font-size:25px;
+    background: linear-gradient(135deg, #000000 0%, #020202 18%, #101010 38%, #000000 68%, #000000 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-family: var(--cursive);
+    text-shadow: 0 1px 0 rgba(255,255,255,.04), 0 4px 10px rgba(0,0,0,.22);
+  }
+  /* ====== CONTADOR HORIZONTAL ====== */
+.countdown{
+    background:#f2e6db;
+    text-align:center;
+    padding:40px 18px;
+  }
+  .count-title{
+    font-family: "Great Vibes", cursive;
+    font-size:28px;
+    margin-bottom:22px;
+    color:#3b2d2d;
+  }
+  .count-row{
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    flex-wrap:nowrap;        /* ✅ fuerza horizontal */
+  }
+  .count-item{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+  .label{
+    margin-top:8px;
+    font-size:10px;
+    letter-spacing:3px;
+    color:#555;
+    text-transform: uppercase;
+  }
+  /* ✅ si en pantallas muy pequeñas no caben, se ajusta */
+  @media (max-width: 360px){
+    .count-row{ gap:8px; }
+    .flip{ width:68px; }
+    .flip .digit{ font-size:26px; }
+  }
+  /* ====== FLIP DOWN REAL (PARTIDO) ====== */
+  .flip{
+    width:75px;
+    height:56px;
+    position:relative;
+    perspective: 900px;
+    border-radius:6px;
+    box-shadow:0 6px 12px rgba(0,0,0,0.15);
+    overflow:hidden;
+    background:#fff;
+  
+    --h: 56px;
+    --half: 28px;
+  }
+  
+  /* Mitades */
+  .flip .top,
+  .flip .bottom,
+  .flip .top-flip,
+  .flip .bottom-flip{
+    position:absolute;
+    left:0;
+    width:100%;
+    height:50%;
+    overflow:hidden;
+    background:#fff;
+    backface-visibility:hidden;
+    transform-style:preserve-3d;
+  }
+  
+  .flip .top{ top:0; border-bottom:1px solid rgba(0,0,0,0.15); }
+  .flip .bottom{ bottom:0; }
+  
+  /* Número completo recortado */
+  .flip .digit{
+    position:absolute;
+    left:0;
+    width:100%;
+    height:var(--h);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  
+    font-family:"Cormorant Garamond", serif;
+    font-size:28px;
+    font-weight:600;
+    color:#111;
+    letter-spacing:2px;
+  }
+  
+  /* mitad superior visible */
+  .flip .top .digit,
+  .flip .top-flip .digit{ top:0; }
+  
+  /* mitad inferior visible */
+  .flip .bottom .digit,
+  .flip .bottom-flip .digit{ top:calc(-1 * var(--half)); }
+  
+  /* piezas animadas */
+  .flip .top-flip{
+    top:0;
+    border-bottom:1px solid rgba(0,0,0,0.15);
+    transform-origin: bottom;
+    opacity:0;
+  }
+  
+  .flip .bottom-flip{
+    bottom:0;
+    transform-origin: top;
+    transform: rotateX(90deg);
+    opacity:0;
+  }
+  
+  /* ✅ MÁS LENTO + “bajando” */
+  .flip.is-flipping .top-flip{
+    opacity:1;
+    animation: flipTopDown .65s ease-in forwards;
+  }
+  
+  .flip.is-flipping .bottom-flip{
+    opacity:1;
+    animation: flipBottomDown .65s ease-out forwards;
+    animation-delay: .65s;
+  }
+  
+  /* La tapa de arriba cae hacia abajo */
+  @keyframes flipTopDown{
+    0%   { transform: rotateX(0deg); }
+    100% { transform: rotateX(90deg); }  /* ✅ baja */
+  }
+  
+  /* La de abajo entra desde atrás */
+  @keyframes flipBottomDown{
+    0%   { transform: rotateX(-90deg); } /* ✅ viene desde arriba hacia ti */
+    100% { transform: rotateX(0deg); }
+  }
+/* FOTO que invade la siguiente sección */
+.half-photo{
+    position: relative;
+    z-index: 80;                 /* ✅ encima de itinerary */
+    transform: translateY(55px); /* ✅ cuánto invade (ajusta) */
+  }
+  
+  .half-photo img{
+    width:100%;
+    display:block;
+    box-shadow: 0 10px 26px rgba(0,0,0,.18);
+    z-index: 80;   
+  }
+  /* la sección siguiente baja para dejar espacio al overlay de la foto */  
+  .blessing{
+    padding:20px 18px 34px;
+    text-align:center;
+  }
+  .blessing h3{
+    margin: 0 0 22px;
+    font-size: 30px;
+    text-transform: initial;
+    font-family: 'Great Vibes', serif;
+    font-weight: 600;
+    font-style: normal;
+    background: linear-gradient(135deg, #000000 0%, #111111 24%, #2a2a2a 48%, #0f0f0f 66%, #000000 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: none;
+  }
+  .parents{
+    display:flex;
+    gap:14px;
+    justify-content:center;
+    flex-wrap:wrap;
+  }
+  .parents p, .godparents p{
+    padding:14px;
+    margin:0;
+    font-family: var(--title);
+    font-size:28px;
+    color: #000;
+    text-shadow: none;
+  }
+.parent-name{
+  display: inline-block;
+  margin-top: 20px;
+  padding: 5px;
+  font-family: 'Great Vibes', serif;
+    font-size: 35px;
+    font-weight: 600;
+    font-style: normal;
+    line-height: 1.1;
+    background: linear-gradient(135deg, #8b6a3e 0%, #c9a26a 24%, #fff2df 48%, #e8c997 66%, #b38954 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  text-shadow: 0 1px 0 rgba(255, 248, 235, 0.45), 0 2px 6px rgba(139, 106, 62, 0.12);
+}
+
+.parent-name,
+.itinerary-item h2,
+.gifts-section h2,
+.playlist-section h2,
+.dresscode-section h2,
+#weatherSection h3,
+.gallery-section h2,
+.wishes-section h2,
+.nochild-section h2,
+.album-section h2,
+.rsvp-section h2 {
+  padding: 10px;
+  font-family: 'Great Vibes', serif;
+  font-size: 30px;
+  font-weight: 600;
+  font-style: normal;
+  background: linear-gradient(135deg, #8b6a3e 0%, #c9a26a 24%, #8d7244 48%, #e8c997 66%, #b38954 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none;
+}
+
+#weatherSection h3 {
+  text-transform: none;
+}
+  .blessing strong, .godparents h4{
+    /* Degradado dorado */
+    background: none;
+    -webkit-background-clip: initial;
+    -webkit-text-fill-color: initial;
+    background-clip: initial;
+    color: #000;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: oblique;
+    font-weight: 600;
+    font-size: 22px;
+    padding: 5px;
+  }
+  .godparents h4{
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  #itinerary{
+    position: relative;
+  }
+  .itinerary, .wishes, .rsvp{
+    padding:30px 18px 44px;
+    display:grid;
+    gap:18px;
+    max-width:700px;
+    margin:0 auto;
+    background-color: transparent;
+  }
+  .event-card{
+    padding:16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .event-icon{
+    width:min(400px, 80vw);
+    height:min(400px, 80vw);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex: 0 0 auto;
+  }
+  .event-icon img{
+    width:400px;
+    height:400px;
+    object-fit:contain;
+    display:block;
+  }
+  .icon-clean{
+    mix-blend-mode: multiply;
+    background: transparent;
+  }
+  .event-top, .gifts, .wishes, .rsvp{
+    display:flex; 
+    gap:12px; 
+    align-items:flex-start;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    display:flex;
+    flex-direction:column; /* si quieres todo centrado */
+    align-items:center;
+    text-align:center;
+  }
+  /* ================= IMAGEN DEL LUGAR ================= */
+.event-photo {
+  margin-top: 18px;
+  border-radius: 100%;
+  overflow: hidden;
+  position: relative;
+}
+.event-photo img {
+  width: 100%;
+  height: 200px;                 /* puedes ajustar */
+  object-fit: cover;
+  display: block;
+  transition: transform 1s ease;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.08);
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+.event-card{
+  box-shadow: 0 18px 40px rgba(0,0,0,0.08);
+  transition: transform .3s ease, box-shadow .3s ease;
+  background-color: white;
+  border-radius: 20px;
+}
+/* Zoom suave al hacer hover */
+.event-card:hover .event-photo img {
+  transform: scale(1.05);
+}
+/* Sombra elegante */
+.event-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom,rgba(0,0,0,0) 60%,rgba(0,0,0,0.15) 100%);
+  pointer-events: none;
+}
+  .event-title, .dress h3, .gifts h3, .wishes h3, .rsvp h3{
+    font-size:40px;
+    font-family: var(--cursive);
+           /* Degradado dorado */
+           background: linear-gradient(135deg, #8b6a3e 0%, #c9a26a 24%, #8d7244 48%, #e8c997 66%, #b38954 100%);
+           -webkit-background-clip: text;
+           -webkit-text-fill-color: transparent;
+           background-clip: text;
+    display: flex;
+    justify-content: center;
+  }
+  .dress h3, .dress-strong, .dress-note, .gifts h3, .gifts-strong, .wishes h3, .wishes-strong, .rsvp h3, .rsvp-strong{
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  .event-place, .dress-strong{
+    font-size:22px;
+    margin-top:4px;
+    font-family: var(--title);
+    display: flex;
+    justify-content: center;
+    color:var(--beige-dark);
+}
+  .event-time{
+    color:var(--beige-dark);
+    margin-top:2px;
+    font-weight:600;
+    font-family: var(--text);
+    display: flex;
+    justify-content: center;
+    font-size: 20px;
+}
+  .event-address, .dress-note, .gifts-strong, .wishes-strong, .rsvp-strong, .no-kids p{
+    margin-top: 10px;
+    font-family: var(--text);
+    font-size: 20px;
+    color: var(--beige-dark);
+    text-align: center;   /* ✅ esto es lo que centra texto */
+  }
+  .btn-outline{
+    display:inline-block;
+    margin-top:12px;
+    padding:10px 14px;
+    border:1px solid var(--ink);
+    text-decoration:none;
+    color:var(--ink);
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    font-size:11px;
+    font-family: var(--title);
+  }
+  /* Botón principal */
+#btnConfirmarRsvp,
+#btnSendWish{
+    display:inline-block;
+    margin-top:12px;
+    padding:10px 14px;
+    border:1px solid var(--ink);
+    text-decoration:none;
+    color:var(--ink);
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    font-size:11px;
+    font-family: var(--title);
+    cursor: pointer;
+    transition: .25s ease;
+    background-color: transparent;
+  }
+  #btnConfirmarRsvp:hover,
+  #btnSendWish:hover{
+    background: transparent;
+    color: var(--beige);
+  }
+  
+  #btnConfirmarRsvp:disabled,
+  #btnSendWish:disabled{
+    opacity: .6;
+    cursor: not-allowed;
+  }
+
+  /* Mensajes */
+.rsvp-msg{
+    margin: 14px auto 0;
+    max-width: 560px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    font-family: var(--text);
+    font-size: 14px;
+    line-height: 1.35;
+  }
+  
+  .rsvp-msg.ok{
+    color: var(--beige-dark);
+  }
+  
+  .rsvp-msg.error{
+    background: rgba(200, 0, 0, .08);
+    border: 1px solid rgba(200, 0, 0, .18);
+    color: rgba(130, 0, 0, .95);
+  }
+  /* Confirmado UI */
+.rsvp-confirmed{
+    background: rgba(85,107,47,.12) !important;
+    color: var(--beige-dark) !important;
+    border-color: rgba(85,107,47,.35) !important;
+  }
+  /* ================= MODAL ================= */
+.rsvp-backdrop{
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.55);
+    backdrop-filter: blur(2px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity .25s ease;
+    padding: 18px;
+  }
+  
+  .rsvp-backdrop.show{
+    opacity: 1;
+  }
+  .rsvp-modal{
+    width: min(520px, 96vw);
+    background: #fff;
+    border-radius: 18px;
+    padding: 18px 18px 16px;
+    box-shadow: 0 18px 40px rgba(0,0,0,.22);
+    text-align: left;
+    position: relative;
+    transform: translateY(8px);
+    transition: transform .25s ease;
+  }
+  .rsvp-backdrop.show .rsvp-modal{
+    transform: translateY(0);
+  }
+  
+  .rsvp-close{
+    position: absolute;
+    top: 1px;
+    right: 3px;
+    width: 30px;
+    height: 30px;
+    border-radius: 999px;
+    border: none;
+    background: #fff;
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+  }
+  .rsvp-modal h3{
+    margin: 10px 0 4px;
+    font-family: var(--title);
+    color: var(--beige-dark);
+    font-size: 20px;
+  }
+  
+  .rsvp-sub{
+    margin: 0 0 14px;
+    font-family: var(--text);
+    color: rgba(29,29,29,.65);
+    font-size: 16px;
+  }
+  .rsvp-modal label{
+    display: block;
+    margin: 10px 0 6px;
+    font-family: var(--title);
+    font-size: 16px;
+    color: rgba(29,29,29,.55);
+  }
+.rsvp-modal input{
+    width: 100%;
+    padding: 12px 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(0,0,0,.12);
+    background: rgba(0,0,0,.02);
+    font-family: var(--text);
+    font-size: 18px;
+    outline: none;
+  }
+  .rsvp-actions{
+    display: flex;
+    gap: 10px;
+    margin-top: 14px;
+  }
+  .rsvp-btn{
+    flex: 1;
+    padding: 12px 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(0,0,0,.12);
+    font-family: var(--text);
+    font-size: 14px;
+    cursor: pointer;
+    transition: all .2s ease;
+  }
+  
+  .rsvp-yes{
+    background: var(--beige);
+    color: #fff;
+    border-color: var(--beige);
+  }
+  .rsvp-yes:hover{
+    background: transparent;
+    color: var(--beige);
+  }
+  
+  .rsvp-no{
+    background: #fff;
+    color: rgba(29,29,29,.85);
+  }
+  .rsvp-no:hover{
+    border-color: rgba(29,29,29,.35);
+  }
+  .rsvp-btn.is-active{
+    border-color: var(--beige-dark);
+    box-shadow: inset 0 0 0 1px rgba(29,29,29,.12);
+  }
+  
+  /* Responsive */
+  @media (max-width: 420px){
+    .rsvp-actions{
+      flex-direction: column;
+    }
+  }      
+/* Separadores normales (una sola foto) */
+/* Separador con background-image */
+.full-sep[style*="background-image"]{
+    height: 65vh;                 /* ajusta: 55vh / 70vh */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+/* SOLO el separador rotativo */
+.full-sep-rotating{
+    position: relative;
+    width: 100%;
+    height: 65vh;
+    overflow: hidden;
+    background:#000;
+  }
+  
+  .full-sep-rotating > img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;          /* ✅ full-bleed para slideshow */
+    object-position: center;
+    transition: opacity .6s ease;
+  }
+  .dress{
+    margin-top: 80px;
+    padding:16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .dress p{
+    margin: 8px 0 0;
+    font-family: var(--text);
+    font-size: 20px;
+    color: var(--beige-dark);
+    font-weight: 300;
+  }
+  .dress h3,
+  .venues h3{
+    background: linear-gradient(135deg, #8b6a3e 0%, #c9a26a 24%, #8d7244 48%, #e8c997 66%, #b38954 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .dress-strong,
+  .dress-note{
+    font-weight: 300;
+  }
+
+  .venues{
+    max-width: 720px;
+    margin: 34px auto 12px;
+    padding: 0 18px;
+    text-align: center;
+  }
+  .venues h3{
+    margin: 0 0 18px;
+    font-family: var(--cursive);
+    font-size: 40px;
+  }
+  .venue-item{
+    padding: 20px 14px 24px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 6px;
+    opacity: 0;
+    transform: translateY(18px);
+    filter: blur(2px);
+    transition: opacity .65s ease, transform .65s ease, filter .65s ease;
+  }
+  .venue-item + .venue-item{
+    margin-top: 10px;
+    border-top: 1px solid rgba(29,29,29,.12);
+  }
+  .venue-title{
+    margin: 8px 0 0;
+    font-family: var(--title);
+    font-size: 24px;
+    color: var(--beige-dark);
+    font-weight: 400;
+  }
+.venue-place,
+.venue-time{
+  margin: 8px 0 0;
+  font-family: var(--text);
+  font-size: 20px;
+  color: var(--beige-dark);
+  font-weight: 300;
+}
+.venue-address{
+  margin: 8px 0 0;
+  font-family: var(--text);
+  font-size: 15px;
+  line-height: 1.45;
+  color: rgba(29,29,29,.68);
+  font-weight: 300;
+}
+.venues .venue-title,
+.venues .venue-place,
+.venues .venue-address,
+.venues .venue-time{
+  color: var(--ink);
+}
+.dress .venue-title,
+.dress .dress-note,
+#weatherSection .wishes-strong,
+#weatherSection .weather-tip,
+.gifts .gifts-strong,
+#playlistSection .wishes-strong,
+#noKidsSection .wishes-strong,
+#wishesSection .wishes-strong,
+#wishesSection .wishes-empty,
+#albumSection .wishes-strong,
+#rsvpSection .rsvp-strong,
+#rsvpSection .rsvp-choice-label{
+  color: var(--ink);
+}
+.venue-note{
+    margin: 8px 0 0;
+    font-family: var(--text);
+    font-size: 18px;
+    color: rgba(29,29,29,.58);
+    font-style: italic;
+  }
+  .btn-venue{
+    display: inline-block;
+    margin-top: 14px;
+    padding: 9px 16px;
+    border: 1px solid rgba(29,29,29,.35);
+    border-radius: 999px;
+    font-family: var(--title);
+    font-size: 11px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: rgba(255,255,255,.38);
+    backdrop-filter: blur(2px);
+    transition: all .25s ease;
+  }
+  .btn-venue:hover{
+    background: rgba(255,255,255,.62);
+    border-color: rgba(29,29,29,.55);
+    transform: translateY(-1px);
+  }
+  .venues.is-visible .venue-item{
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+  .venues.is-visible .venue-item:nth-of-type(1){ transition-delay: .05s; }
+  .venues.is-visible .venue-item:nth-of-type(2){ transition-delay: .15s; }
+  .venues.is-visible .venue-item:nth-of-type(3){ transition-delay: .25s; }
+  .venues.is-visible .venue-item:nth-of-type(4){ transition-delay: .35s; }
+
+  .gifts{
+    max-width: 720px;
+    margin: 34px auto 0;
+    padding: 0 18px;
+    text-align: center;
+  }
+.gifts h3{
+  margin: 0 0 12px;
+  padding-top: 5px;
+  font-family: var(--cursive);
+  font-size: 40px;
+  background: linear-gradient(135deg, #8b6a3e 0%, #c9a26a 24%, #8d7244 48%, #e8c997 66%, #b38954 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .gifts-strong,
+  .rsvp-strong{
+    margin: 8px 0 0;
+    font-family: var(--text);
+    font-size: 20px;
+    color: var(--beige-dark);
+    font-weight: 300;
+    line-height: 1.45;
+  }
+  .gifts-cash-note{
+    margin-top: 10px;
+    font-family: var(--text);
+    font-size: 14px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: rgba(29,29,29,.56);
+  }
+  .modal-account-buttons{
+    margin-top: 14px;
+    justify-content: center;
+    gap: 10px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .rsvp-inline{
+    width: min(560px, 95%);
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+.rsvp-label{
+  margin: 2px 0 0;
+  font-family: var(--title);
+  font-size: 16px;
+  color: rgba(29,29,29,.62);
+  text-align: left;
+}
+  .rsvp-choice-label{
+    margin-top: 6px;
+  }
+#rsvpNombre,
+#rsvpGuests{
+  width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(0,0,0,.15);
+  background: rgba(255,255,255,.48);
+  font-family: var(--text);
+  font-size: 17px;
+  color: var(--ink);
+}
+  .rsvp-guests-wrap{
+    margin-top: 6px;
+  }
+
+  .love-quote{
+    background-color: #3f53226d;
+  }
+  .love-quote p {
+    color: var(--beige-dark);
+    font-family: var(--cursive);
+    font-size: 28px;
+  }
+  .dress, .gifts, .love-quote, .closing{
+    padding:44px 18px;
+    text-align:center;
+  }
+  /* ================= CLOSING ================= */
+
+.closing{
+    padding: 10px 10px 10px;
+    text-align: center;
+    background-color: transparent;
+    position: relative;
+  }
+  .closing .mono{
+    margin-bottom: 24px;
+  }
+  .closing .mono-img{
+    width: 110px;
+    max-width: 40%;
+    opacity: 0.95;
+  }
+  /* Nombre pareja */
+  .closing h3{
+    margin: 0 0 12px;
+    font-family: var(--title); /* tu tipografía elegante */
+    font-size: 34px;
+    letter-spacing: 0.05em;
+    font-weight: 500;
+    background: linear-gradient(135deg, #8b6a3e 0%, #c9a26a 24%, #8d7244 48%, #e8c997 66%, #b38954 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  /* Fecha */
+  .closing p{
+    margin: 0;
+    font-family: var(--text);
+    font-size: 15px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(0,0,0,0.55);
+  }
+  .closing-quote{
+    margin-top: 18px !important;
+    font-family: var(--cursive) !important;
+    font-size: 30px !important;
+    letter-spacing: 0 !important;
+    text-transform: none !important;
+    color: var(--beige-dark) !important;
+  }
+  /* Línea decorativa sutil */
+  .closing::after{
+    content:"";
+    display:block;
+    width: 60px;
+    height: 1px;
+    background: var(--beige);
+    margin: 28px auto 0;
+    opacity: 0.5;
+  }
+  #footer{
+    padding:20px 18px 34px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background-color:#8b6a3e3d;
+    flex-direction: column;
+  }
+  .footer-brand{
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    font-size:12px
+}
+  #social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+  #social-icons a {
+    color: white;
+    font-size: 2.5rem;
+    transition: color 0.3s;
+}
+
+#social-icons a {
+    color: white;
+    margin: 0 10px;
+    font-size: 1.5rem;
+}
+  .footer-logo img {
+    width: 90px;
+    height: auto;
+}
+  /* Fade In */
+  .fade-in-element{
+    opacity:0;
+    transform: translateY(14px);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  .fade-in-element.is-visible{
+    opacity:1;
+    transform: translateY(0);
+  }
+
+  /* ================= TRANSICIÓN PORTADA ================= */
+
+.cover {
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  
+  .cover.is-hidden {
+    opacity: 0;
+    transform: scale(1.02);
+    pointer-events: none;
+  }
+  
+  .invitation {
+    display: none;
+    opacity: 0;
+    transition: opacity .6s ease;
+  }
+  
+  .invitation.is-open {
+    display: block;
+    opacity: 1;
+  }
+  .mono {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .mono-img {
+    width: 120px; /* ajusta tamaño aquí */
+    max-width: 40vw;
+    height: auto;
+    object-fit: contain;
+  }
+  .hero-mono-img {
+    width: 90px;
+    filter: drop-shadow(0 5px 15px rgba(0,0,0,.4));
+  }
+  .calendar-btn{
+    margin: 18px auto 0;
+    display: inline-block;
+    border-color: var(--beige);
+    color: var(--beige);
+  }
+  .calendar-btn:hover{
+    background: var(--beige);
+    color: #fff;
+    border-color: var(--beige);
+  }
+
+/*ANIMACIONES*/
+/* BOTONES: se nota en desktop (hover) y en celular (tap) */
+button, .btn-outline, a.btn-outline {
+    transition: transform .18s ease, box-shadow .18s ease, opacity .18s ease;
+    will-change: transform;
+  }
+  
+  button:hover, .btn-outline:hover, a.btn-outline:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0,0,0,.14);
+  }
+  
+  button:active, .btn-outline:active, a.btn-outline:active {
+    transform: scale(.98);
+    box-shadow: 0 6px 14px rgba(0,0,0,.12);
+  }
+
+  /* ================= ANIMACIONES NOTORIAS (AUTO) ================= */
+
+/* Estado inicial */
+section h3,
+section p,
+section .event-icon {
+  opacity: 0;
+  transform: translateY(28px) scale(.98);
+  filter: blur(3px);
+  transition: opacity .9s cubic-bezier(.2,.8,.2,1),
+              transform .9s cubic-bezier(.2,.8,.2,1),
+              filter .9s cubic-bezier(.2,.8,.2,1);
+  will-change: opacity, transform, filter;
+}
+
+/* Activación por sección */
+section.is-visible h3,
+section.is-visible p,
+section.is-visible .event-icon {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+/* Stagger dentro de la sección */
+section.is-visible .event-icon { transition-delay: .05s; }
+section.is-visible h3          { transition-delay: .15s; }
+section.is-visible p           { transition-delay: .28s; }
+
+/* Botones: más “wow” */
+button, .btn-outline, a.btn-outline {
+  transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+}
+
+button:hover, .btn-outline:hover, a.btn-outline:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 14px 28px rgba(0,0,0,.18);
+  filter: brightness(1.03);
+}
+
+button:active, .btn-outline:active, a.btn-outline:active {
+  transform: scale(.97);
+  box-shadow: 0 10px 22px rgba(0,0,0,.15);
+}
+
+/* Iconos: bounce suave al entrar */
+section.is-visible .event-icon {
+  animation: iconPop .55s cubic-bezier(.2,.9,.3,1) both;
+}
+
+@keyframes iconPop {
+  0%   { transform: translateY(18px) scale(.85); opacity: 0; }
+  70%  { transform: translateY(-6px) scale(1.08); opacity: 1; }
+  100% { transform: translateY(0) scale(1); }
+}
+
+/* Accesibilidad: reduce motion */
+@media (prefers-reduced-motion: reduce){
+  section h3, section p, section .event-icon,
+  button, .btn-outline, a.btn-outline{
+    transition: none !important;
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+    filter: none !important;
+  }
+}
+
+/* ================= BOTONES SLIDE IN ================= */
+
+/* Estado inicial */
+section button,
+section .btn-outline,
+section a.btn-outline {
+
+  opacity: 0;
+  transform: translateX(-120px);
+  transition: 
+    transform 1s cubic-bezier(.22,1,.36,1),
+    opacity .9s ease;
+  will-change: transform, opacity;
+}
+
+/* Cuando la sección es visible */
+section.is-visible button,
+section.is-visible .btn-outline,
+section.is-visible a.btn-outline {
+
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Stagger bonito si hay varios botones */
+section.is-visible button:nth-of-type(1),
+section.is-visible .btn-outline:nth-of-type(1) {
+  transition-delay: .25s;
+}
+
+section.is-visible button:nth-of-type(2),
+section.is-visible .btn-outline:nth-of-type(2) {
+  transition-delay: .5s;
+}
+/* ================= MODAL TRANSFERENCIA ================= */
+
+.transfer-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  transition: opacity .26s ease;
+}
+
+.transfer-backdrop.is-open {
+  opacity: 1;
+}
+
+.transfer-modal {
+  background: white;
+  padding: 40px 28px;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  position: relative;
+
+  /* POP mejorado */
+  animation: none;
+  box-shadow: 0 20px 55px rgba(0,0,0,.22);
+  opacity: 0;
+  transform: translateY(16px) scale(.96);
+  transition: opacity .32s ease, transform .32s cubic-bezier(.2,.9,.3,1);
+}
+
+.transfer-backdrop.is-open .transfer-modal {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+.transfer-modal h3{
+  font-size:20px;
+  font-family: var(--title);
+         /* Degradado dorado */
+         background: linear-gradient(135deg, #8b6a3e 0%, #c9a26a 24%, #8d7244 48%, #e8c997 66%, #b38954 100%);
+         -webkit-background-clip: text;
+         -webkit-text-fill-color: transparent;
+         background-clip: text;
+  display: flex;
+  justify-content: center;
+}
+
+.transfer-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 26px;
+  cursor: pointer;
+}
+
+.transfer-names {
+  font-family: var(--title);
+  font-size: 30px;
+  margin-bottom: 20px;
+  color: var(--beige-dark);
+}
+
+.transfer-info p {
+  margin: 6px 0;
+  font-size: 20px;
+  color: #444;
+  font-family: var(--text);
+}
+.transfer-info strong {
+  margin: 6px 0;
+  font-size: 20px;
+  font-family: var(--text);
+}
+
+/* ================= HOMOGENEIDAD VENUE ================= */
+.dress,
+.gifts,
+.wishes,
+.rsvp{
+  max-width: 720px;
+  margin: 34px auto 0;
+  padding: 0 18px 26px;
+  text-align: center;
+}
+
+.dress{
+  margin-top: 80px;
+}
+
+.dress h3,
+.gifts h3,
+.wishes h3,
+.rsvp h3,
+.venues h3,
+.transfer-modal h3{
+  font-family: var(--cursive);
+  background: linear-gradient(135deg, #8b6a3e 0%, #c9a26a 24%, #8d7244 48%, #e8c997 66%, #b38954 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.dress p,
+.gifts-strong,
+.wishes-strong,
+.rsvp-strong,
+.transfer-info p{
+  margin: 8px 0 0;
+  font-family: var(--text);
+  font-size: 20px;
+  color: var(--beige-dark);
+  font-weight: 300;
+  line-height: 1.45;
+}
+
+.transfer-modal{
+  background: rgba(255,255,255,.94);
+  border: 1px solid rgba(29,29,29,.1);
+}
+
+.transfer-info{
+  margin-top: 10px;
+}
+
+.transfer-info strong{
+  font-family: var(--title);
+  font-size: 17px;
+  font-weight: 500;
+  color: rgba(29,29,29,.78);
+}
+
+.copy-account-btn{
+  margin-top: 16px;
+}
+
+.section-divider{
+  width: min(640px, calc(100% - 36px));
+  height: 1px;
+  margin: 24px auto 8px;
+  background: rgba(29,29,29,.12);
+}
+
+.hidden{
+  display: none !important;
+}
+
+.wishes-buttons{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.wish-form-panel,
+.wishes-list{
+  width: min(100%, 560px);
+  margin-top: 12px;
+}
+
+.album-qr-wrap{
+  margin-top: 14px;
+}
+
+.album-qr{
+  width: min(230px, 70vw);
+  height: auto;
+  display: block;
+}
+
+.weather-card{
+  width: min(100%, 320px);
+  margin-top: 14px;
+  padding: 10px 12px;
+  border: 1px solid rgba(29,29,29,.1);
+  border-radius: 16px;
+  background: rgba(255,255,255,.48);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  text-align: left;
+}
+
+.weather-icon{
+  width: 30px;
+  height: 30px;
+  color: #111;
+  flex: 0 0 auto;
+}
+
+.weather-icon svg{
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.weather-temp{
+  margin: 0;
+  font-family: var(--title);
+  font-size: 20px;
+  line-height: 1;
+  color: #111;
+}
+
+.weather-state{
+  margin: 2px 0 0;
+  font-family: var(--text);
+  font-size: 12px;
+  color: var(--beige-dark);
+}
+
+.weather-main{
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.weather-meta{
+  display: grid;
+  gap: 4px;
+  flex: 0 0 auto;
+}
+
+.weather-meta p{
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.weather-meta span{
+  font-family: var(--title);
+  font-size: 10px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: rgba(29,29,29,.55);
+}
+
+.weather-meta strong{
+  font-family: var(--text);
+  font-size: 12px;
+  color: #111;
+  background: none;
+  -webkit-text-fill-color: initial;
+}
+
+.weather-source,
+.weather-tip{
+  margin-top: 10px;
+  font-family: var(--text);
+  font-size: 15px;
+  color: var(--beige-dark);
+}
+
+.weather-source{
+  display: inline-block;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.weather-tip{
+  margin-bottom: 0;
+  font-size: 10px;
+}
+
+@media (max-width: 560px){
+  .weather-card{
+    width: min(100%, 280px);
+    gap: 8px;
+    padding: 9px 10px;
+  }
+
+  .weather-meta{
+    gap: 3px;
+  }
+}
+
+.wish-form{
+  display: grid;
+  gap: 10px;
+  text-align: center;
+}
+
+.wish-form h3 {
+  margin: 0 0 8px;
+  text-align: center;
+  font-family: 'Great Vibes', serif;
+  font-size: 28px;
+  font-weight: 600;
+  font-style: normal;
+  text-transform: none;
+  background: linear-gradient(135deg, #8b6a3e 0%, #c9a26a 24%, #8d7244 48%, #e8c997 66%, #b38954 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none;
+}
+
+.wish-label{
+  font-family: var(--text);
+  font-size: 16px;
+  color: #000;
+  text-align: center;
+}
+
+.wish-form input,
+.wish-form textarea{
+  width: 100%;
+  border: 1px solid rgba(29,29,29,.18);
+  border-radius: 14px;
+  padding: 12px 14px;
+  background: rgba(255,255,255,.78);
+  color: var(--ink);
+  font-family: var(--text);
+  font-size: 13px;
+  outline: none;
+}
+
+.wish-form button {
+  font-size: 11px !important;
+}
+
+.wish-status,
+.wishes-empty {
+  font-size: 13px;
+}
+
+.wish-form button,
+.wish-status,
+.wishes-empty,
+.wish-card {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.wishes-list {
+  display: grid;
+  justify-items: center;
+}
+
+.wish-form textarea{
+  resize: vertical;
+  min-height: 110px;
+}
+
+.wish-status,
+.wishes-empty,
+.wish-card-date{
+  margin: 0;
+  font-family: var(--text);
+  color: var(--beige-dark);
+}
+
+.wishes-list{
+  display: grid;
+  gap: 12px;
+}
+
+.album-section {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 34px 22px 40px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.album-section .wishes-strong {
+  max-width: 680px;
+  margin: 0 auto 14px;
+  color: #000;
+}
+
+.qr-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.rsvp {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 34px 22px 40px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.rsvp h3 {
+  margin: 0 0 8px;
+  padding: 10px;
+  text-align: center;
+  font-family: 'Great Vibes', serif;
+  font-size: 30px;
+  font-weight: 600;
+  font-style: normal;
+  text-transform: none;
+  background: var(--gold-gradient-deep);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none;
+  display: flex;
+  justify-content: center;
+}
+
+.nochild-section p,
+.rsvp .rsvp-strong {
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
+  color: #000;
+}
+
+.wish-card{
+  padding: 14px 16px;
+  border: 1px solid rgba(29,29,29,.1);
+  border-radius: 10px;
+  background: rgba(255,255,255,.54);
+  text-align: left;
+}
+
+.wish-card-name{
+  margin: 0 0 4px;
+  font-family: var(--title);
+  color: #000;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.wish-card-message{
+  margin: 0 0 6px;
+  font-family: var(--text);
+  color: #000;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.wish-card-date{
+  font-size: 11px;
+  color: rgba(0, 0, 0, 0.68);
+  opacity: 1;
+}
+
+.rsvp-result-text{
+  margin: 8px 0 0;
+  font-family: var(--text);
+  font-size: 20px;
+  color: var(--beige-dark);
+  font-weight: 300;
+}
+
+@media (max-width: 768px){
+  .gifts h3,
+  .wishes h3,
+  .rsvp h3,
+  .dress h3,
+  .venues h3{
+    font-size: 34px;
+  }
+
+  .transfer-info p,
+  .dress p,
+  .gifts-strong,
+  .wishes-strong,
+  .rsvp-strong,
+  .rsvp-result-text{
+    font-size: 18px;
+  }
+}
+/* ================= GIFTS ================= */
+
+/* ================= BOTÓN BRILLO (SHIMMER) ================= */
+.btn-shimmer{
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-shimmer::after{
+  content:"";
+  position:absolute;
+  top:-40%;
+  left:-60%;
+  width: 40%;
+  height: 180%;
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,.55) 50%,
+    rgba(255,255,255,0) 100%
+  );
+  transform: rotate(18deg);
+  animation: shimmer 3.8s ease-in-out infinite;
+  pointer-events:none;
+}
+
+@keyframes shimmer{
+  0%   { left: -60%; opacity: 0; }
+  15%  { opacity: 1; }
+  45%  { left: 120%; opacity: 1; }
+  60%  { opacity: 0; }
+  100% { left: 120%; opacity: 0; }
+}
+.copy-btn{
+  width: 100%;
+}
+
+/* Ajustes finales prioritarios para tamanos y botones */
+.lord-icon-style {
+  width: 150px !important;
+  height: 150px !important;
+}
+
+.itinerary-item > p,
+.itinerary-item p,
+.dresscode-section .venue-title {
+  font-size: 18px !important;
+}
+
+.time-location .date,
+.time-location .separator,
+.time-location .time {
+  font-size: 18px !important;
+}
+
+.btn-venue,
+.section-link,
+.weather-source,
+.details button,
+.directions-button,
+.playlist-section button,
+.wishes-section button,
+.gifts-section button,
+#btnConfirmarRsvp,
+#btnRsvpNo {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 42px !important;
+  padding: 0 16px !important;
+  border-width: 1px !important;
+  border-style: solid !important;
+  border-color: rgba(201, 162, 106, 0.72) !important;
+  border-radius: 999px !important;
+  background: rgba(255, 255, 255, 0.46) !important;
+  color: #426031 !important;
+  font-family: var(--title) !important;
+  font-size: 12px !important;
+  letter-spacing: .12em !important;
+  text-transform: uppercase !important;
+  text-decoration: none !important;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1) !important;
+}
+
+#btnRsvpSi {
+  border-color: #426031 !important;
+  border-radius: 999px !important;
+  background: #426031 !important;
+  color: #fff !important;
+}
+
+.btn-venue:hover,
+.section-link:hover,
+.weather-source:hover,
+.details button:hover,
+.directions-button:hover,
+.playlist-section button:hover,
+.wishes-section button:hover,
+.gifts-section button:hover,
+#btnConfirmarRsvp:hover,
+#btnRsvpNo:hover {
+  background: rgba(255, 255, 255, 0.62) !important;
+  border-color: rgba(201, 162, 106, 0.72) !important;
+  color: #c9a26a !important;
+  transform: translateY(-1px) !important;
+  opacity: 1 !important;
+}
+
+.quote-section p,
+.guest-section p,
+.invitation-info-section p,
+.gifts-section p,
+.rsvp-section p,
+.playlist-section p,
+.dresscode-section p,
+.nochild-section p,
+.qr-container p {
+  font-size: 18px !important;
+}
+
+.nochild-section p,
+.rsvp .rsvp-strong {
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: oblique;
+  color: #000;
+}
+
+@media (max-width: 768px) {
+  .itinerary-item p,
+  .itinerary-item > p,
+  .dresscode-section .venue-title,
+  .time-location .date,
+  .time-location .separator,
+  .time-location .time {
+    font-size: 18px !important;
+  }
+
+  .lord-icon-style {
+    width: 150px !important;
+    height: 150px !important;
+  }
+}
+
+/* ================= FINAL VISUAL PASS ================= */
+.itinerary-section,
+.gifts-section,
+.playlist-section,
+.dresscode-section,
+#weatherSection,
+.gallery-section,
+.wishes-section,
+.nochild-section,
+.album-section,
+.rsvp {
+  max-width: 680px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding: 32px 18px 36px !important;
+  text-align: center !important;
+}
+
+.itinerary-item h2,
+.gifts-section h2,
+.playlist-section h2,
+.dresscode-section h2,
+#weatherSection h3,
+.gallery-section h2,
+.wishes-section h2,
+.hotel-section h2,
+.nochild-section h2,
+.album-section h2,
+.rsvp h3 {
+  margin: 0 0 12px !important;
+  padding: 10px !important;
+  font-family: 'Great Vibes', serif !important;
+  font-size: 30px !important;
+  font-weight: 600 !important;
+  font-style: normal !important;
+  line-height: 1.08 !important;
+  text-transform: none !important;
+  background: linear-gradient(135deg, #8b6a3e 0%, #c9a26a 24%, #8d7244 48%, #e8c997 66%, #b38954 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  text-shadow: none !important;
+}
+
+.itinerary-item > p,
+.itinerary-item p,
+.hotel-intro,
+.hotel-distance,
+.dresscode-section .venue-title {
+  font-family: 'Cormorant Garamond', serif !important;
+  font-style: oblique !important;
+  font-size: 18px !important;
+  line-height: 1.45 !important;
+  color: #000 !important;
+  text-align: center !important;
+  padding: 0 !important;
+  margin: 0 auto !important;
+}
+
+.time-location .date,
+.time-location .separator,
+.time-location .time {
+  font-size: 18px !important;
+  font-style: normal !important;
+}
+
+.quote-section p,
+.guest-section p,
+.invitation-info-section p,
+.gifts-section p,
+.rsvp-section p,
+.playlist-section p,
+.dresscode-section p,
+.nochild-section p,
+.qr-container p,
+.wishes-strong,
+.rsvp .rsvp-strong,
+.gifts-section .gifts-strong,
+.dresscode-section .dress-note,
+.hotel-description,
+.weather-tip,
+.location {
+  font-size: 18px !important;
+  line-height: 1.6 !important;
+}
+
+.nochild-section p,
+.rsvp .rsvp-strong {
+  max-width: 680px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding: 10px !important;
+  font-family: 'Cormorant Garamond', serif !important;
+  font-style: oblique !important;
+  color: #000 !important;
+}
+
+.lord-icon-style {
+  width: 150px !important;
+  height: 150px !important;
+}
+
+.btn-venue,
+.section-link,
+.weather-source,
+.details button,
+.directions-button,
+.gifts-section button,
+.playlist-section button,
+.wishes-section button,
+#btnConfirmarRsvp,
+#btnRsvpNo,
+#btnRsvpSi {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 42px !important;
+  padding: 0 16px !important;
+  border-radius: 0 !important;
+  font-family: var(--title) !important;
+  font-size: 12px !important;
+  letter-spacing: .12em !important;
+  text-transform: none !important;
+  text-decoration: none !important;
+}
+
+.btn-venue,
+.section-link,
+.weather-source,
+.details button,
+.directions-button,
+.gifts-section button,
+.playlist-section button,
+.wishes-section button,
+#btnConfirmarRsvp,
+#btnRsvpNo {
+  border: 1px solid rgba(201, 162, 106, 0.72) !important;
+  background: rgba(255, 255, 255, 0.46) !important;
+  color: #426031 !important;
+}
+
+#btnRsvpSi {
+  border: 0 !important;
+  background: transparent !important;
+  color: #426031 !important;
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.14) !important;
+}
+
+.btn-venue:hover,
+.section-link:hover,
+.weather-source:hover,
+.details button:hover,
+.directions-button:hover,
+.gifts-section button:hover,
+.playlist-section button:hover,
+.wishes-section button:hover,
+#btnConfirmarRsvp:hover,
+#btnRsvpNo:hover {
+  background: rgba(255, 255, 255, 0.62) !important;
+  border-color: rgba(201, 162, 106, 0.72) !important;
+  color: #c9a26a !important;
+  transform: translateY(-1px) !important;
+  opacity: 1 !important;
+}
+
+.countdown-calendar-btn,
+.btn-venue,
+.section-link,
+.weather-source,
+.details button:not(.details-close),
+.directions-button,
+.gifts-section button,
+.playlist-section button,
+.rsvp-section button,
+.wishes-section button {
+  min-height: auto !important;
+  padding: 10px 18px !important;
+  border: 0 !important;
+  border-bottom: 1px solid #000 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: #000 !important;
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.14) !important;
+  backdrop-filter: none !important;
+}
+
+#btnRsvpNo,
+#btnConfirmarRsvp {
+  border: 0 !important;
+  border-bottom: 1px solid #000 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: #000 !important;
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.14) !important;
+}
+
+#btnRsvpSi:hover {
+  border: 0 !important;
+  background: transparent !important;
+  color: #426031 !important;
+  box-shadow: 0 14px 22px rgba(0, 0, 0, 0.18) !important;
+  transform: translateY(-1px) !important;
+}
+
+.countdown-calendar-btn:hover,
+.btn-venue:hover,
+.section-link:hover,
+.weather-source:hover,
+.details button:not(.details-close):hover,
+.directions-button:hover,
+.gifts-section button:hover,
+.playlist-section button:hover,
+.rsvp-section button:hover,
+.wishes-section button:hover {
+  border-bottom-color: #000 !important;
+  background: transparent !important;
+  color: #000 !important;
+  box-shadow: 0 14px 22px rgba(0, 0, 0, 0.18) !important;
+  transform: translateY(-1px) !important;
+  opacity: 1 !important;
+}
+
+#btnRsvpNo:hover,
+#btnConfirmarRsvp:hover {
+  border-bottom-color: #000 !important;
+  background: transparent !important;
+  color: #000 !important;
+  box-shadow: 0 14px 22px rgba(0, 0, 0, 0.18) !important;
+  transform: translateY(-1px) !important;
+}
+
+.countdown-calendar-btn span {
+  background: none !important;
+  -webkit-background-clip: border-box !important;
+  background-clip: border-box !important;
+  -webkit-text-fill-color: #000 !important;
+  color: #000 !important;
+}
+
+.guest-summary-section {
+  max-width: 680px;
+  padding: 18px 22px;
+  background: #000;
+  text-align: center;
+}
+
+.guest-summary-section #guest-name {
+  margin: 0;
+  background: var(--gold-gradient-deep) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: transparent !important;
+  font-size: 25px !important;
+}
+
+.guest-summary-section .guest-passes {
+  margin-top: -10px;
+  background: var(--gold-gradient-deep) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: transparent !important;
+  font-size: 20px !important;
+}
+
+.guest-summary-section .guest-passes i {
+  -webkit-text-fill-color: #b18837 !important;
+  color: #b18837 !important;
+}
+
+#seal span,
+.parent-name,
+.itinerary-item h2,
+.gifts-section h2,
+.playlist-section h2,
+.dresscode-section h2,
+#weatherSection h3,
+.gallery-section h2,
+.wishes-section h2,
+.hotel-section h2,
+.nochild-section h2,
+.album-section h2,
+.rsvp-section h2 {
+  background: var(--gold-gradient-deep) !important;
+  display: inline-block !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: transparent !important;
+}
+
+#seal span {
+  display: inline-block;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: transparent !important;
+}
+
+.banner-section {
+  background: transparent !important;
+  padding: 0 !important;
+}
+
+.banner-section p {
+  margin: 0 !important;
+  padding: 40px !important;
+  text-align: center;
+  font-family: var(--text);
+  font-size: 22px;
+  font-style: italic;
+  background: var(--gold-gradient-deep) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: transparent !important;
+}
+
+.countdown-calendar-btn {
+  margin-top: 12px !important;
+  padding: 6px 12px !important;
+  font-size: 10px !important;
+  letter-spacing: .1em !important;
+}
+
+.section-separator {
+  max-width: none;
+  margin: 18px 0;
+  padding: 0;
+}
+
+.section-separator img {
+  width: 100%;
+  display: block;
+  border: 0;
+  margin: 0;
+}
+
+#btnRsvpSi:hover {
+  background: #c9a26a !important;
+  color: #fff !important;
+  border-color: #c9a26a !important;
+}
+
+@media (max-width: 768px) {
+  .itinerary-section,
+  .gifts-section,
+  .playlist-section,
+  .dresscode-section,
+  #weatherSection,
+  .gallery-section,
+  .wishes-section,
+  .nochild-section,
+  .album-section,
+  .rsvp {
+    padding: 28px 16px 32px !important;
+  }
+
+  .itinerary-item h2,
+  .gifts-section h2,
+  .playlist-section h2,
+  .dresscode-section h2,
+  #weatherSection h3,
+  .gallery-section h2,
+  .wishes-section h2,
+  .hotel-section h2,
+  .nochild-section h2,
+  .album-section h2,
+  .rsvp h3 {
+    font-size: 30px !important;
+  }
+
+  .itinerary-item > p,
+  .itinerary-item p,
+  .hotel-intro,
+  .hotel-distance,
+  .dresscode-section .venue-title,
+  .time-location .date,
+  .time-location .separator,
+  .time-location .time,
+  .quote-section p,
+  .guest-section p,
+  .invitation-info-section p,
+  .gifts-section p,
+  .rsvp-section p,
+  .playlist-section p,
+  .dresscode-section p,
+  .nochild-section p,
+  .qr-container p,
+  .wishes-strong,
+  .rsvp .rsvp-strong,
+  .gifts-section .gifts-strong,
+  .dresscode-section .dress-note,
+  .weather-tip,
+  .location {
+    font-size: 18px !important;
+  }
+}
+
+.gifts-section .gifts-strong,
+.dresscode-section .dress-note,
+#weatherSection .wishes-strong,
+.album-section .wishes-strong {
+  margin: 10px 0 !important;
+  padding: 10px !important;
+  font-family: 'Cormorant Garamond', serif !important;
+  font-style: oblique !important;
+  font-weight: 400 !important;
+  font-size: 18px !important;
+  line-height: 1.6 !important;
+  color: #000 !important;
+  text-align: center !important;
+}
+
+/* Toast copiado */
+.copy-toast{
+  margin-top: 10px;
+  font-family: var(--text);
+  font-size: 14px;
+  color: var(--beige-dark);
+  background: rgba(85,107,47,.12);
+  border: 1px solid rgba(85,107,47,.22);
+  padding: 10px 12px;
+  border-radius: 12px;
+}
+/* Accesibilidad */
+  @media (prefers-reduced-motion: reduce){
+    #envelope-top,
+    #envelope-bottom,
+    #seal,
+    #envelope:not(.is-opening) #seal,
+    .btn-shimmer::after{ animation: none !important; }
+    .music-bubble{ animation: none !important; }
+    .transfer-modal{ animation: none !important; }
+    #envelope-top,
+    #envelope-bottom,
+    #seal{
+      transition: none !important;
+    }
+  }
+
+#countdown > h3{
+  background: linear-gradient(135deg, #000000 0%, #020202 18%, #101010 38%, #000000 68%, #000000 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  color: transparent !important;
+  text-shadow: 0 1px 0 rgba(255,255,255,.04), 0 4px 10px rgba(0,0,0,.22) !important;
+}

@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ricardo e Iris</title>
+    <meta name="description" content="Te invitamos a celebrar nuestra boda.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Nos Casamos Ricardo e Iris">
+    <meta property="og:description" content="Te invitamos a celebrar nuestra boda.">
+    <meta property="og:image" content="https://i.postimg.cc/44D4QSrm/RI.jpg">
+    <meta name="keywords" content="invitación de boda, Ricardo, Iris, boda, amor, celebración">
+    <meta name="author" content="Two Design | Invitaciones Digitales">
+    <link rel="stylesheet" href="style-2.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preload" href="images/envelope-top.png" as="image" fetchpriority="high">
+    <link rel="preload" href="images/envelope-bottom.png" as="image" fetchpriority="high">
+    <link rel="preload" href="images/FOTOINI.jpeg" as="image" fetchpriority="high">
+    <link rel="preload" href="images/H3.jpg" as="image" fetchpriority="high">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <script defer src="https://cdn.lordicon.com/lordicon.js"></script>
+    <script src="https://kit.fontawesome.com/3c219a0781.js" crossorigin="anonymous"></script>
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" as="style">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head> 
+<body>
+    <div style="position: absolute; width: 0; height: 0; overflow: hidden;">
+        <i class="fas fa-play"></i>
+        <i class="fas fa-pause"></i>
+    </div>    
+<div class="main-content">
+    <!-- Sección de sobre -->
+    <div id="cover" class="cover">
+        <div id="envelope">
+            <div id="envelope-top" class="envelope-panel envelope-panel--top">
+                <img src="images/envelope-top.png" alt="Imagen superior del sobre" class="envelope-panel__image">
+            </div>
+            <button id="seal" type="button" aria-label="Abrir invitación">
+                <span class="fade-in-element">R | I</span>
+            </button>
+            <div id="envelope-bottom" class="envelope-panel envelope-panel--bottom">
+                <img src="images/envelope-bottom.png" alt="Imagen inferior del sobre" class="envelope-panel__image">
+            </div>
+        </div>
+    </div>
+    <!-- Sección de invitación -->
+    <div id="invitation" class="invitation" aria-hidden="true">
+          <div class="photo-section photo-section--hero fade-in-element">
+             <div class="photo-container">
+                 <img src="images/FOTOINI.jpeg" alt="Foto de Ricardo e Iris" class="photo photo--bw fade-in-element fade-in-element" loading="eager" fetchpriority="high" decoding="async">
+              </div>
+                 <div class="photo-text photo-text--hero">
+                 <h1>Ricardo <span class="hero-and">    e  </span> Iris</h1>
+                  <h2>10 . 10 . 2026</h2>
+                 </div>
+            </div> 
+        <div class="contenedor-play">
+            <h1 id="musicTitle" class="texto-play fade-in-element fade-in-element">Calling You - Blue October</h1>
+            <button id="playPauseButton" type="button" class="icono-contenedor fade-in-element fade-in-element" aria-label="Reproducir música" aria-pressed="false">
+                <i id="iconoPlayPause" class="fas fa-play" aria-hidden="true"></i>
+            </button>
+            <audio id="weddingMusic" preload="auto"></audio>
+            <div class="progress-container">
+                <input id="progress-bar" type="range" value="0" min="0" max="100" step="1">
+                <div class="time-display">
+                    <span id="current-time">0:00</span> / <span id="duration-time">0:00</span>
+                </div>
+            </div>
+        </div>
+         <div class="content">
+            <div class="photo-section photo-section--countdown fade-in-element fade-in-element">
+                <div class="photo-container">
+                    <img src="images/H3.jpg" alt="Fondo de Ricardo e Iris" class="photo fade-in-element fade-in-element" loading="eager" fetchpriority="high" decoding="async">
+                </div>
+                      <div class="photo-text fade-in-element fade-in-element">
+                          <h3 class="title">¡Nos casamos!</h3>
+                          <p>El día en que nuestros corazones se unen para siempre ha llegado. Compartan nuestra alegría en nuestra boda.</p>
+                           <div class="countdown fade-in-element fade-in-element">
+                              <div class="unit">
+                                 <span id="cdDays" class="number">00</span>
+                                 <span class="label">Días</span>
+                              </div>
+                               <div class="unit">
+                                 <span id="cdHours" class="number">00</span>
+                                 <span class="label">Horas</span>
+                              </div>
+                             <div class="unit">
+                                 <span id="cdMins" class="number">00</span>
+                                 <span class="label">Minutos</span>
+                             </div>
+                              <div class="unit">
+                                 <span id="cdSecs" class="number">00</span>
+                                 <span class="label">Segundos</span>
+                              </div>
+                           </div>
+                          <a
+                            class="countdown-calendar-btn"
+                            href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Boda%20Ricardo%20e%20Iris&dates=20261010T220000Z/20261011T040000Z&details=Te%20esperamos%20para%20celebrar%20la%20boda%20de%20Ricardo%20e%20Iris.&location=Guatemala"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <span>Agregar al calendario</span>
+                          </a>
+                       </div>
+                 </div>
+            </div>
+                    <div class="guest-summary-section guest-section invitation-info-section fade-in-element fade-in-element">
+                      <p id="guest-name" class="fade-in-element"></p>
+                      <p class="guest-passes fade-in-element">Invitación válida por <span id="passes"></span> <i class="fa-solid fa-ticket" aria-hidden="true"></i></p>
+                   </div>
+             <section class="blessing fade-in-element" id="family">
+                <h3>Con la bendición de Dios y de nuestros padres</h3>
+                <div class="parents">
+                    <p><strong>Padres del novio</strong><br><span class="parent-name">Norma Bravo y Antonio Velásquez</span></p>
+                    <p><strong>Mamá de la novia</strong><br><span class="parent-name">Iris López</span></p>
+                </div>
+            </section>
+            <div class="photo-full fade-in-element">
+                <img src="images/C2.jpeg" alt="Foto de Ricardo e Iris" loading="lazy">
+            </div>
+             <div class="itinerary-section fade-in-element fade-in-element">
+                 <div class="itinerary-item">
+                    <lord-icon 
+                     src="https://cdn.lordicon.com/hingizjn.json" 
+                     element="2000" 
+                     stroke="light" 
+                     colors="primary:#426031,secondary:#610026" 
+                     class="lord-icon-style"
+                     ></lord-icon>
+                     <h2>Ceremonia</h2>
+                    <p>Monte San Francisco</p>
+                    <div class="itinerary-details">
+                        <div class="time-location">
+                            <span class="date">10 Octubre</span>
+                            <span class="separator">|</span>
+                            <span class="time">3:30 PM</span>
+                        </div>
+                        <p class="location">Km. 15.5 Carretera a Piedra Parada, Santa Catarina Pinula, Cdad. de Guatemala</p>
+                        <a class="btn-venue section-link" href="https://ul.waze.com/ul?venue_id=176619666.1766458801.2936630&overview=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location" target="_blank" rel="noopener">Cómo llegar</a>
+                    </div>
+                </div>
+                <div class="itinerary-item">
+                    <lord-icon 
+                     src="https://cdn.lordicon.com/lhzhnixi.json" 
+                     stroke="light" 
+                     colors="primary:#426031,secondary:#610026" 
+                     class="lord-icon-style"
+                     ></lord-icon>
+                     <h2>Recepción</h2>
+                    <p>Casa Nicolasa</p>
+                    <div class="itinerary-details">
+                        <div class="time-location">
+                            <span class="date">10 Octubre</span>
+                            <span class="separator">|</span>
+                            <span class="time">6:00 PM</span>
+                        </div>
+                        <p class="location">San Jorge Muxbal, Cdad. de Guatemala</p>
+                        <a class="btn-venue section-link" href="https://ul.waze.com/ul?venue_id=176685201.1766589871.2225917&overview=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location" target="_blank" rel="noopener">Cómo llegar</a>
+                    </div>
+                </div>
+            </div>
+            <div class="section-separator fade-in-element">
+                <img src="images/C6.jpg" alt="Separador decorativo" loading="lazy">
+            </div>
+            <div class="playlist-section fade-in-element fade-in-element">
+                <lord-icon 
+                 src="https://cdn.lordicon.com/vvlnxtgv.json" 
+                 stroke="light" 
+                 colors="primary:#426031,secondary:#610026" 
+                 class="lord-icon-style"
+                  ></lord-icon>
+                <h2>Playlist</h2>
+                <p>Nos encantaría que nos sugieras esas canciones que sabes que son geniales y no pueden faltar en nuestra boda.</p>
+                <a class="btn-venue section-link" href="https://open.spotify.com/playlist/42SZvFsQWAIYsPf4nLkKXU?si=48d9228f74574f2c&pt=3dc83a2f46ca5a552f5da077ff157f2c" target="_blank" rel="noopener">Abrir playlist en Spotify</a>
+            </div>
+            <div class="photo-full fade-in-element">
+                <img src="images/C3.jpeg" alt="Foto de Ricardo e Iris" loading="lazy">
+            </div>
+            <div class="dresscode-section fade-in-element fade-in-element">
+                <lord-icon
+                 src="https://cdn.lordicon.com/okgbpdra.json"
+                 stroke="light"
+                 colors="primary:#426031,secondary:#610026"
+                 class="lord-icon-style"
+                ></lord-icon>
+                <h2>Dress Code</h2>
+                <p class="venue-title">Formal</p>
+                <p class="dress-note">El blanco queda completamente reservado para la novia.</p>
+                <a class="btn-venue section-link" href="https://www.pinterest.com/search/pins/?q=formal%20wedding%20guest%20dress%20elegant" target="_blank" rel="noopener">Inspo Damas</a>
+                <a class="btn-venue section-link" href="https://www.pinterest.com/search/pins/?q=formal%20wedding%20guest%20men%20suit%20elegant" target="_blank" rel="noopener">Inspo Caballeros</a>
+            </div>
+            <section class="wishes fade-in-element" id="weatherSection">
+                <h3>Clima</h3>
+                <p class="wishes-strong">
+                    Pronóstico estimado para San Jorge Muxbal. Consúltalo antes de salir por posibilidad de lluvias o calor.
+                </p>
+                <div class="weather-card" id="weatherCard" aria-live="polite">
+                    <div class="weather-icon" id="weatherIcon" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 42H46C51.5228 42 56 37.5228 56 32C56 26.4772 51.5228 22 46 22C45.6119 22 45.2289 22.0221 44.8525 22.065C43.1142 16.1925 37.6669 12 31.25 12C23.431 12 17.0938 18.3372 17.0938 26.1562C17.0938 26.5002 17.1063 26.8413 17.1312 27.179C12.9723 28.5898 10 32.5202 10 37.0625C10 39.8477 11.2072 42 20 42Z" stroke="currentColor" stroke-width="2.8" stroke-linejoin="round"></path><path d="M24 47L21 53" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"></path><path d="M34 47L31 53" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"></path><path d="M44 47L41 53" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"></path></svg></div>
+                    <div class="weather-main">
+                        <p class="weather-temp" id="weatherTemp">19°C</p>
+                        <p class="weather-state" id="weatherState">Lluvias</p>
+                    </div>
+                    <div class="weather-meta">
+                        <p><span>Máx.</span> <strong id="weatherMax">24°C</strong></p>
+                        <p><span>Mín.</span> <strong id="weatherMin">13°C</strong></p>
+                        <p><span>Lluvia</span> <strong id="weatherRain">99%</strong></p>
+                    </div>
+                </div>
+                <a class="btn-venue section-link weather-source" id="weatherSource" href="https://weather.com/es-BO/weather/monthly/l/GTXX1866:1:GT" target="_blank" rel="noopener">Ver pronóstico</a>
+                <p class="weather-tip">San Jorge Muxbal, Santa Catarina Pinula.</p>
+            </section>
+            <div class="gallery-section fade-in-element fade-in-element">
+                <h2>Galería de fotos</h2>
+            
+                <!-- Checkbox oculto que controla la visibilidad del modal -->
+                <input type="checkbox" id="toggle-modal" class="hidden-checkbox">
+            
+                <!-- Modal de fotos -->
+                <div id="photo-modal" class="modal">
+                    <!-- Label para cerrar el modal -->
+                    <label for="toggle-modal" class="close">&times;</label>
+                    <img class="modal-content" id="main-photo-modal" alt="modal">
+                </div> 
+            
+                <!-- Galería principal -->
+                <div class="gallery-main fade-in-element">
+                    <!-- Al hacer clic en la imagen principal, se abre el modal -->
+                    <label for="toggle-modal">
+                        <img id="main-photo" src="images/H1.jpg" alt="Foto principal" onclick="changePhoto(this)" loading="lazy">
+                    </label>
+                </div>
+            
+                <!-- Miniaturas de la galería -->
+                <div class="gallery-thumbs fade-in-element">
+                    <!-- Cada miniatura también actúa como disparador del modal -->
+                    <label for="toggle-modal">
+                        <img src="images/H1.jpg" alt="Foto 1" onclick="changePhoto(this)" loading="lazy">
+                    </label>
+                    <label for="toggle-modal">
+                        <img src="images/H2.jpg" alt="Foto 2" onclick="changePhoto(this)" loading="lazy">
+                    </label>
+                    <label for="toggle-modal">
+                        <img src="images/C1.jpg" alt="Foto 3" onclick="changePhoto(this)" loading="lazy">
+                    </label>
+                    <label for="toggle-modal">
+                        <img src="images/H4.jpeg" alt="Foto 4" onclick="changePhoto(this)" loading="lazy">
+                    </label>
+                </div>
+            </div>
+            <div class="nochild-section fade-in-element fade-in-element">
+                <h2>Solo Adultos</h2>
+                <p>Amamos a los más pequeños de la familia, pero en esta ocasión hemos elegido celebrar en un ambiente solo para adultos. Gracias por acompañarnos y permitirles disfrutar una noche de descanso.</p>
+            </div>
+            <div class="section-separator fade-in-element">
+                <img src="images/C7.jpg" alt="Separador decorativo" loading="lazy">
+            </div>
+            <div class="wishes-section fade-in-element fade-in-element">
+                <h2>Buenos deseos</h2>
+                <button type="button" onclick="toggleWishes()">Ver buenos deseos</button>
+                <div id="wishes" class="hidden wishes-list">
+                    <p class="wishes-empty">Aún no hay deseos. Sé el primero en dejarnos uno.</p>
+                </div>
+                <button type="button" onclick="toggleWishForm()">Enviar buenos deseos</button>
+                <div id="wish-form-panel" class="hidden wish-form-panel">
+                    <form id="wish-form" class="wish-form" onsubmit="submitWish(event)">
+                        <h3>Enviar Buenos Deseos</h3>
+                        <label class="wish-label" for="wish-name">Nombre:</label>
+                        <input type="text" id="wish-name" name="wish-name">
+                        <label class="wish-label" for="wish-message">Mensaje de buenos deseos:</label>
+                        <textarea id="wish-message" name="wish-message"></textarea>
+                        <p id="wish-status" class="wish-status" aria-live="polite"></p>
+                        <button type="submit">Enviar</button>
+                    </form>
+                </div>
+            </div>
+            <section class="hotel-section fade-in-element" id="hotelSection">
+                <h2>Hospedaje</h2>
+                <div class="hotel-info-box" id="hotelInfoBox">
+                    <p class="hotel-intro">Hotel Hilton</p>
+                    <p class="hotel-address">Kilómetro 12.5 Carretera a El Salvador, Complejo East Vista Real, Zona 15, Ciudad de Guatemala</p>
+                    <p class="hotel-distance">Distancia de 28 minutos al lugar del evento</p>
+                    <p class="hotel-description">Puedes hacer tu reserva, por medio de alguno de estos canales:</p>
+                </div>
+                <div class="hotel-links" aria-label="Opciones de reserva">
+                    <a class="hotel-toggle section-link" id="hotelLinkWeb" href="#" target="_blank" rel="noopener noreferrer">Página Web</a>
+                    <a class="hotel-toggle section-link" id="hotelLinkWhatsapp" href="#" target="_blank" rel="noopener noreferrer">Whatsapp</a>
+                    <a class="hotel-toggle section-link" id="hotelLinkBooking" href="#" target="_blank" rel="noopener noreferrer">Booking</a>
+                </div>
+                <div class="hotel-selector" aria-label="Cambiar opción de hospedaje">
+                    <button type="button" class="hotel-dot is-active" data-hotel-index="0" aria-label="Hospedaje 1" aria-pressed="true"></button>
+                    <button type="button" class="hotel-dot" data-hotel-index="1" aria-label="Hospedaje 2" aria-pressed="false"></button>
+                    <button type="button" class="hotel-dot" data-hotel-index="2" aria-label="Hospedaje 3" aria-pressed="false"></button>
+                    <button type="button" class="hotel-dot" data-hotel-index="3" aria-label="Hospedaje 4" aria-pressed="false"></button>
+                </div>
+            </section>
+            <div class="gifts-section fade-in-element fade-in-element">
+                 <lord-icon 
+                  src="https://cdn.lordicon.com/ibydboev.json" 
+                  stroke="light" 
+                  colors="primary:#426031,secondary:#610026" 
+                  class="lord-icon-style"
+                  ></lord-icon>
+                <h2>Lluvia de Sobres</h2>
+                <p class="gifts-strong">
+                    Su presencia es nuestro mejor regalo, pero si desean tener un detalle con nosotros,
+                    pueden hacerlo por medio de lluvia de sobres o transferencia.
+                </p>
+                <div class="container">
+                    <button type="button" onclick="toggleDetails()">Ver datos de cuenta</button>
+                    <dialog class="details" id="accountDetails">
+                        <button type="button" class="details-close" onclick="toggleDetails(false)" aria-label="Cerrar">&times;</button>
+                        <div class="details-copy-block" id="accountDetailsText">Banco Industrial
+Cuenta Monetaria
+No. 0000285114
+A nombre de: VELASQUEZ BRAVO RICARDO ANTONIO</div>
+                        <button type="button" onclick="copyAccountInfo()">Copiar datos</button>
+                    </dialog>
+                </div>
+                <p>¡Gracias!</p>
+            </div>
+            <div class="photo-full fade-in-element">
+                <img src="images/C4.jpeg" alt="Foto de Ricardo e Iris" loading="lazy">
+            </div>
+            <div class="album-section fade-in-element">
+                <h2>Álbum digital</h2>
+                <p class="wishes-strong">
+                    Hagamos los recuerdos inolvidables, todas las fotos que tomes en nuestra boda compártelas con nosotros para que queden inmortalizados.
+                    Puedes escanear el QR o utilizar el botón.
+                </p>
+                <div class="qr-container">
+                    <img src="images/QRRI.svg" alt="QR álbum digital" class="album-qr">
+                    <a class="btn-venue section-link" href="https://drive.google.com/drive/folders/12w0M3ECk3aQYVgOCMdesoonjJsehn9FM" target="_blank" rel="noopener">Subir fotos</a>
+                </div>
+            </div>
+            <section class="rsvp fade-in-element" id="rsvpSection">
+                <h3>Confirma tu Asistencia</h3>
+                <p class="rsvp-strong">
+                    Agradeceremos que nos indiques si podrás acompañarnos, o si no te será posible asistir, antes del 15 de septiembre. Si no recibimos tu respuesta antes de esa fecha, entenderemos que no podrás asistir. Gracias por tu comprensión.
+                </p>
+
+                <div class="rsvp-inline" id="rsvpInline">
+                    <label for="rsvpNombre" class="rsvp-label">Nombre</label>
+                    <input id="rsvpNombre" type="text" readonly>
+
+                    <p class="rsvp-label rsvp-choice-label">¿Asistirás?</p>
+                    <div class="rsvp-actions">
+                        <button id="btnRsvpSi" class="rsvp-btn rsvp-yes" type="button">Sí, es un gusto.</button>
+                        <button id="btnRsvpNo" class="rsvp-btn rsvp-no" type="button">No, lamentablemente no podré.</button>
+                    </div>
+
+                    <div id="rsvpGuestsWrap" class="rsvp-guests-wrap" style="display:none">
+                        <label for="rsvpGuests" class="rsvp-label">Número de invitados</label>
+                        <select id="rsvpGuests"><option value="1">1</option></select>
+                    </div>
+
+                    <button id="btnConfirmarRsvp" type="button">Confirmar</button>
+                </div>
+
+                <div id="msgRsvp" class="rsvp-msg" style="display:none"></div>
+            </section>
+            <div class="photo-full fade-in-element fade-in-element">
+                <img src="images/C5.jpeg" alt="Foto de Ricardo e Iris" loading="lazy">
+            </div>
+            <div class="banner-section fade-in-element fade-in-element1">
+                <p>"La medida del amor es amar sin medida." - San Agustín</p>
+            </div>
+            <footer class="fade-in-element fade-in-element">
+                <div class="social-icons">
+                    <a href="https://wa.me/50236011737" aria-label="Whatsapp"><i class="fab fa-whatsapp fade-in-element"></i></a>
+                    <a href="https://www.facebook.com/thetwodesign?mibextid=ZbWKwl" aria-label="Facebook"><i class="fab fa-facebook fade-in-element"></i></a>
+                    <a href="https://www.instagram.com/thetwodesign?igsh=M2k5eWF4dHl3czNv" aria-label="Instagram"><i class="fab fa-instagram fade-in-element"></i></a>
+                </div>
+                <div class="logo fade-in-element">
+                    <img src="images/2.png" alt="Logo de la empresa">
+                </div>
+            </footer>
+        </div>
+    </div>
+</div>
+    <button id="musicBubble" class="music-bubble" type="button" aria-label="Pausar música" aria-pressed="true" hidden>
+        <i class="fa-solid fa-pause" aria-hidden="true"></i>
+    </button>
+    <script src="config.js"></script>
+    <script type="module" src="database.js" defer></script>
+    <script src="rsvp.js" defer></script>
+    <script src="script.js" defer></script>
+    <script type="module" src="loads.js" defer></script>
+</body>
+</html>
