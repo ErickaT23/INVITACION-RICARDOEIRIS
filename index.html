@@ -164,6 +164,31 @@
             <div class="section-separator fade-in-element">
                 <img src="images/C6.jpg" alt="Separador decorativo" loading="lazy">
             </div>
+            <div class="gifts-section fade-in-element fade-in-element">
+                 <lord-icon 
+                  src="https://cdn.lordicon.com/ibydboev.json" 
+                  stroke="light" 
+                  colors="primary:#426031,secondary:#610026" 
+                  class="lord-icon-style"
+                  ></lord-icon>
+                <h2>Lluvia de Sobres</h2>
+                <p class="gifts-strong">
+                    Su presencia es nuestro mejor regalo, pero si desean tener un detalle con nosotros,
+                    pueden hacerlo por medio de lluvia de sobres o transferencia.
+                </p>
+                <div class="container">
+                    <button type="button" onclick="toggleDetails()">Ver datos de cuenta</button>
+                    <dialog class="details" id="accountDetails">
+                        <button type="button" class="details-close" onclick="toggleDetails(false)" aria-label="Cerrar">&times;</button>
+                        <div class="details-copy-block" id="accountDetailsText">Banco Industrial
+Cuenta Monetaria
+No. 0000285114
+A nombre de: VELASQUEZ BRAVO RICARDO ANTONIO</div>
+                        <button type="button" onclick="copyAccountInfo()">Copiar datos</button>
+                    </dialog>
+                </div>
+                <p>¡Gracias!</p>
+            </div>
             <div class="playlist-section fade-in-element fade-in-element">
                 <lord-icon 
                  src="https://cdn.lordicon.com/vvlnxtgv.json" 
@@ -295,31 +320,6 @@
                     <button type="button" class="hotel-dot" data-hotel-index="3" aria-label="Hospedaje 4" aria-pressed="false"></button>
                 </div>
             </section>
-            <div class="gifts-section fade-in-element fade-in-element">
-                 <lord-icon 
-                  src="https://cdn.lordicon.com/ibydboev.json" 
-                  stroke="light" 
-                  colors="primary:#426031,secondary:#610026" 
-                  class="lord-icon-style"
-                  ></lord-icon>
-                <h2>Lluvia de Sobres</h2>
-                <p class="gifts-strong">
-                    Su presencia es nuestro mejor regalo, pero si desean tener un detalle con nosotros,
-                    pueden hacerlo por medio de lluvia de sobres o transferencia.
-                </p>
-                <div class="container">
-                    <button type="button" onclick="toggleDetails()">Ver datos de cuenta</button>
-                    <dialog class="details" id="accountDetails">
-                        <button type="button" class="details-close" onclick="toggleDetails(false)" aria-label="Cerrar">&times;</button>
-                        <div class="details-copy-block" id="accountDetailsText">Banco Industrial
-Cuenta Monetaria
-No. 0000285114
-A nombre de: VELASQUEZ BRAVO RICARDO ANTONIO</div>
-                        <button type="button" onclick="copyAccountInfo()">Copiar datos</button>
-                    </dialog>
-                </div>
-                <p>¡Gracias!</p>
-            </div>
             <div class="photo-full fade-in-element">
                 <img src="images/C4.jpeg" alt="Foto de Ricardo e Iris" loading="lazy">
             </div>
