@@ -867,6 +867,15 @@ a{
   color: rgba(0, 0, 0, 0.68);
 }
 
+.parking-note {
+  margin: 6px auto 0;
+  max-width: 460px;
+  font-family: var(--text);
+  font-size: 9px;
+  line-height: 1.4;
+  color: rgba(0, 0, 0, 0.58);
+}
+
 .hotel-description {
   margin: 0 auto;
   max-width: 460px;
@@ -3376,29 +3385,7 @@ section.is-visible .btn-outline:nth-of-type(2) {
     font-size: 30px !important;
   }
 
-  .itinerary-item > p,
-  .itinerary-item p,
-  .hotel-intro,
-  .hotel-distance,
-  .dresscode-section .venue-title,
-  .time-location .date,
-  .time-location .separator,
-  .time-location .time,
-  .quote-section p,
-  .guest-section p,
-  .invitation-info-section p,
-  .gifts-section p,
-  .rsvp-section p,
-  .playlist-section p,
-  .dresscode-section p,
-  .nochild-section p,
-  .qr-container p,
-  .wishes-strong,
-  .rsvp .rsvp-strong,
-  .gifts-section .gifts-strong,
-  .dresscode-section .dress-note,
-  .weather-tip,
-  .location {
+  .itinerary-item > p, .itinerary-item p, .hotel-intro, .hotel-distance, .dresscode-section .venue-title, .time-location .date, .time-location .separator, .time-location .time, .quote-section p, .guest-section p, .invitation-info-section p, .gifts-section p, .rsvp-section p, .playlist-section p, .dresscode-section p, .nochild-section p, .qr-container p, .wishes-strong, .rsvp .rsvp-strong, .gifts-section .gifts-strong, .dresscode-section .dress-note, .weather-tip, .location, .parking-note {
     font-size: 18px !important;
   }
 }
@@ -3416,6 +3403,129 @@ section.is-visible .btn-outline:nth-of-type(2) {
   line-height: 1.6 !important;
   color: #000 !important;
   text-align: center !important;
+}
+
+@media (min-width: 1024px) {
+  .main-content {
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+
+  .content {
+    width: min(100%, 1320px);
+    margin: 0 auto;
+  }
+
+  .photo-section {
+    width: min(100%, 1240px);
+    height: min(100vh, 980px);
+    min-height: 820px;
+    margin: 0 auto;
+  }
+
+  .photo-text--hero,
+  .photo-section--countdown .photo-text {
+    left: 50%;
+    width: min(90vw, 980px);
+  }
+
+  .photo-text--hero {
+    transform: translateX(-50%);
+  }
+
+  .photo-section--countdown .photo-text {
+    transform: translate(-50%, -20px);
+  }
+
+  .photo-text--hero h1 {
+    font-size: clamp(54px, 5vw, 80px);
+    margin-top: -320px;
+  }
+
+  .photo-text--hero .hero-and {
+    font-size: clamp(34px, 2.5vw, 42px);
+  }
+
+  .photo-text--hero h2 {
+    font-size: clamp(30px, 2.8vw, 42px);
+  }
+
+  .photo-section--countdown .title {
+    margin-top: -190px;
+    font-size: clamp(44px, 4vw, 64px);
+  }
+
+  .photo-section--countdown .photo-text > p {
+    max-width: 760px;
+    font-size: 24px;
+  }
+
+  .photo-section--countdown .countdown {
+    justify-content: center;
+    gap: 30px;
+  }
+
+  .photo-full,
+  .section-separator {
+    width: min(100%, 1240px);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .photo-full img,
+  .section-separator img {
+    width: 100%;
+  }
+
+  .guest-summary-section,
+  .blessing {
+    width: min(100%, 980px);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .blessing {
+    padding: 44px 32px 48px;
+  }
+
+  .parents {
+    gap: 24px;
+  }
+
+  .parents p,
+  .godparents p {
+    max-width: 420px;
+  }
+
+  .itinerary-section {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 40px;
+    max-width: 1240px;
+    margin: 0 auto;
+    align-items: start;
+  }
+
+  .itinerary-item {
+    max-width: none;
+  }
+
+  .itinerary-item + .itinerary-item {
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  .playlist-section,
+  .gifts-section,
+  .hotel-section,
+  .dresscode-section,
+  #weatherSection,
+  .gallery-section,
+  .rsvp-section,
+  .wishes-section,
+  .nochild-section {
+    max-width: 860px;
+  }
 }
 
 /* Toast copiado */
