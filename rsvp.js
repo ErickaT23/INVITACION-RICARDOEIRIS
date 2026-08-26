@@ -79,6 +79,24 @@ function keyFor(id) {
   return `rsvp_state_${id}`;
 }
 
+function waitForRSVPDatabase(timeoutMs = 8000) {
+  return new Promise((resolve, reject) => {
+    const start = Date.now();
+    const timer = window.setInterval(() => {
+      if (window.RSVPDatabase?.getConfirmationByGuestId) {
+        window.clearInterval(timer);
+        resolve(window.RSVPDatabase);
+        return;
+      }
+
+      if (Date.now() - start > timeoutMs) {
+        window.clearInterval(timer);
+        reject(new Error("RSVPDatabase no disponible."));
+      }
+    }, 50);
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   let guest = getGuest();
   const eventId = window.config?.event?.defaultEventId || "joseandres-mariandrea-2026";
@@ -111,16 +129,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
   renderGuestFields();
 
-  window.addEventListener("guest:updated", () => {
-    guest = getGuest();
-    renderGuestFields();
-  });
-
   let answer = null;
 
   const setActive = (type) => {
     btnYes.classList.toggle("is-active", type === "yes");
     btnNo.classList.toggle("is-active", type === "no");
+  };
+
+  const resetConfirmationUI = () => {
+    answer = null;
+    setActive(null);
+    btnYes.disabled = false;
+    btnNo.disabled = false;
+    btnConfirm.disabled = false;
+    btnConfirm.style.display = "";
+    guestsWrap.style.display = "none";
+    if (actions) actions.style.display = "";
+    if (inlineBlock) inlineBlock.style.display = "";
+    intro.style.display = "none";
+    msg.style.display = "none";
+    renderGuestFields();
   };
 
   const paintConfirmed = (state) => {
@@ -150,15 +178,57 @@ document.addEventListener("DOMContentLoaded", () => {
     msg.style.display = "none";
   };
 
-  const savedRaw = localStorage.getItem(keyFor(guest.id));
-  if (savedRaw) {
-    try {
-      paintConfirmed(JSON.parse(savedRaw));
-      return;
-    } catch {
-      localStorage.removeItem(keyFor(guest.id));
+  async function syncConfirmationState() {
+    const storageKey = keyFor(guest.id);
+    let localState = null;
+    const savedRaw = localStorage.getItem(storageKey);
+
+    if (savedRaw) {
+      try {
+        localState = JSON.parse(savedRaw);
+      } catch {
+        localStorage.removeItem(storageKey);
+      }
     }
+
+    try {
+      const rsvpDB = await waitForRSVPDatabase();
+      const remoteState = await rsvpDB.getConfirmationByGuestId(eventId, guest.id);
+
+      if (remoteState && remoteState.confirmado) {
+        const normalizedState = {
+          answer: remoteState.respuesta === "no" ? "no" : "yes",
+          guests: Number(remoteState.cantidadConfirmada) || 1,
+        };
+        localStorage.setItem(storageKey, JSON.stringify({
+          ...localState,
+          ...normalizedState,
+        }));
+        paintConfirmed(normalizedState);
+        return;
+      }
+
+      localStorage.removeItem(storageKey);
+      resetConfirmationUI();
+      return;
+    } catch (error) {
+      console.warn("No se pudo sincronizar RSVP remoto:", error);
+    }
+
+    if (localState) {
+      paintConfirmed(localState);
+      return;
+    }
+
+    resetConfirmationUI();
   }
+
+  window.addEventListener("guest:updated", () => {
+    guest = getGuest();
+    syncConfirmationState();
+  });
+
+  syncConfirmationState();
 
   btnYes.addEventListener("click", () => {
     answer = "yes";

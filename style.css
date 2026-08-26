@@ -3238,7 +3238,7 @@ section.is-visible .btn-outline:nth-of-type(2) {
 #btnConfirmarRsvp:hover {
   border-bottom-color: #426031 !important;
   background: #426031 !important;
-  color: #000 !important;
+  color: #fff !important;
   box-shadow: 0 14px 22px rgba(0, 0, 0, 0.18) !important;
   transform: translateY(-1px) !important;
 }

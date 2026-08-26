@@ -533,6 +533,26 @@
         }
     }
 
+    async function clearConfirmationFromRow(row) {
+        if (!row || !row.id) return;
+
+        if (!state.db || typeof state.db.clearConfirmationByGuestId !== "function") {
+            setStatus("No se pudo inicializar la reapertura del RSVP.", true);
+            return;
+        }
+
+        const confirmed = window.confirm("¿Deseas borrar solo la confirmación RSVP y reabrir esta invitación?");
+        if (!confirmed) return;
+
+        try {
+            await state.db.clearConfirmationByGuestId(state.eventId, row.id);
+            setStatus("Confirmación RSVP borrada. La invitación quedó reabierta.", false);
+        } catch (error) {
+            console.error("Error al borrar confirmación RSVP:", error);
+            setStatus("No se pudo borrar la confirmación RSVP.", true);
+        }
+    }
+
     function waitForDatabase(timeoutMs) {
         const maxTime = typeof timeoutMs === "number" ? timeoutMs : 8000;
 
@@ -908,6 +928,14 @@
                 beginInlineEdit(row);
             });
 
+            const reopenBtn = document.createElement("button");
+            reopenBtn.type = "button";
+            reopenBtn.className = "btn-mini btn-mini-secondary";
+            reopenBtn.textContent = "Reabrir RSVP";
+            reopenBtn.addEventListener("click", function () {
+                clearConfirmationFromRow(row);
+            });
+
             const deleteBtn = document.createElement("button");
             deleteBtn.type = "button";
             deleteBtn.className = "btn-mini btn-mini-danger";
@@ -916,7 +944,11 @@
                 deleteInvitadoFromRow(row);
             });
 
-            actionsWrap.append(copyBtn, qrBtn, editBtn, deleteBtn);
+            actionsWrap.append(copyBtn, qrBtn, editBtn);
+            if (row.respuesta === "si" || row.respuesta === "no") {
+                actionsWrap.append(reopenBtn);
+            }
+            actionsWrap.append(deleteBtn);
             return actionsWrap;
         }
 
@@ -949,7 +981,19 @@
                 reactivateInvitadoFromRow(row);
             });
 
-            actionsWrap.append(inactiveLegend, copyBtn, qrBtn, reactivateBtn);
+            const reopenBtn = document.createElement("button");
+            reopenBtn.type = "button";
+            reopenBtn.className = "btn-mini btn-mini-secondary";
+            reopenBtn.textContent = "Reabrir RSVP";
+            reopenBtn.addEventListener("click", function () {
+                clearConfirmationFromRow(row);
+            });
+
+            actionsWrap.append(inactiveLegend, copyBtn, qrBtn);
+            if (row.respuesta === "si" || row.respuesta === "no") {
+                actionsWrap.append(reopenBtn);
+            }
+            actionsWrap.append(reactivateBtn);
             return actionsWrap;
         }
 

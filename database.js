@@ -960,6 +960,19 @@ async function replaceInvitados(arg1, arg2) {
   };
 }
 
+async function clearConfirmationByGuestId(arg1, arg2) {
+  const parsed = parseEventAndGuestArgs(arg1, arg2);
+  const eventId = parsed.eventId;
+  const guestId = String(parsed.guestId || "").trim();
+
+  if (!guestId) {
+    throw new Error("INVITADO_ID_REQUERIDO");
+  }
+
+  await set(getEventRsvpRef(eventId, guestId), null);
+  return { ok: true, eventId: resolveEventId(eventId), id: guestId, cleared: true };
+}
+
 function subscribeToInvitados(arg1, arg2, arg3) {
   const parsed = parseSubscriptionArgs(arg1, arg2, arg3);
   const eventId = parsed.eventId;
@@ -1472,6 +1485,7 @@ window.RSVPDatabase = {
   updateInvitado,
   deleteInvitado,
   replaceInvitados,
+  clearConfirmationByGuestId,
   migrateLocalGuestsToFirebase,
   clearGuestsMigrationMark,
   seedEventConfigToFirebase,
@@ -1516,6 +1530,7 @@ export {
   updateInvitado,
   deleteInvitado,
   replaceInvitados,
+  clearConfirmationByGuestId,
   migrateLocalGuestsToFirebase,
   clearGuestsMigrationMark,
   seedEventConfigToFirebase,
