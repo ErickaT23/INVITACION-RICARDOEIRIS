@@ -121,6 +121,9 @@
         const pasesInput = getEl("invite-pases");
         if (pasesInput) pasesInput.value = "1";
 
+        const childPasesInput = getEl("invite-child-pases");
+        if (childPasesInput) childPasesInput.value = "0";
+
         const activeInput = getEl("invite-active");
         if (activeInput) activeInput.checked = true;
 
@@ -426,6 +429,7 @@
         state.editDraft = {
             nombre: String(row.nombre || "").trim(),
             pases: Math.max(1, Number(row.pasesAsignados) || 1),
+            pasesNinos: normalizeChildPasses(row.pasesNinos),
             activo: row.activo !== false
         };
         refreshView();
@@ -446,6 +450,7 @@
         const draft = state.editDraft || {};
         const nombre = String(draft.nombre || "").trim();
         const pases = Number(draft.pases);
+        const pasesNinos = normalizeChildPasses(draft.pasesNinos);
         const activo = Boolean(draft.activo);
 
         if (!nombre) {
@@ -463,6 +468,7 @@
                 id: row.id,
                 nombre,
                 pases,
+                pasesNinos,
                 activo
             });
 
@@ -514,6 +520,7 @@
             id: row.id,
             nombre: String(row.nombre || "Invitado").trim() || "Invitado",
             pases: Math.max(1, Number(row.pasesAsignados) || 1),
+            pasesNinos: normalizeChildPasses(row.pasesNinos),
             activo: true
         };
 
@@ -556,6 +563,19 @@
         if (response === "si") return "si";
         if (response === "no") return "no";
         return "pendiente";
+    }
+
+    function normalizeChildPasses(value) {
+        return Math.max(0, Number(value) || 0);
+    }
+
+    function formatPassesLabel(pases, pasesNinos) {
+        const adults = Math.max(0, Number(pases) || 0);
+        const children = normalizeChildPasses(pasesNinos);
+        if (children > 0) {
+            return String(adults) + " + " + String(children) + " " + (children === 1 ? "nino" : "ninos");
+        }
+        return String(adults);
     }
 
     function normalizeConfirmation(record) {
@@ -629,6 +649,7 @@
                 id,
                 nombre: String(invitado.nombre || "").trim() || "Invitado",
                 pases: Math.max(0, Number(invitado.pases) || 0),
+                pasesNinos: normalizeChildPasses(invitado.pasesNinos || invitado.childPasses),
                 activo: typeof invitado.activo === "undefined" ? true : Boolean(invitado.activo)
             });
         });
@@ -650,6 +671,7 @@
                 id: guest.id || id,
                 nombre: guest.nombre || guest.name,
                 pases: guest.pases || guest.passes,
+                pasesNinos: guest.pasesNinos || guest.childPasses,
                 activo: typeof guest.activo === "undefined" ? true : Boolean(guest.activo)
             };
         }));
@@ -691,6 +713,7 @@
                     id,
                     nombre: guest.nombre,
                     pasesAsignados: guest.pases,
+                    pasesNinos: guest.pasesNinos,
                     respuesta: "pendiente",
                     cantidadConfirmada: 0,
                     fechaConfirmacion: null,
@@ -703,8 +726,9 @@
 
             rows.push({
                 ...confirmation,
-                nombre: confirmation.nombre || guest.nombre,
-                pasesAsignados: confirmation.pasesAsignados || guest.pases,
+                nombre: guest.nombre,
+                pasesAsignados: guest.pases,
+                pasesNinos: guest.pasesNinos,
                 activo: guest.activo,
                 canEdit: guest.activo !== false,
                 canReactivate: guest.activo === false
@@ -715,6 +739,7 @@
             if (state.invitadosMap.has(id)) return;
             rows.push({
                 ...confirmation,
+                pasesNinos: 0,
                 activo: false,
                 canEdit: false,
                 canReactivate: true
@@ -953,7 +978,7 @@
         if (!tbody) return;
 
         if (!Array.isArray(rows) || rows.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="7">No hay datos para mostrar.</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="8">No hay datos para mostrar.</td></tr>';
             return;
         }
 
@@ -1015,6 +1040,26 @@
                 tdPases.textContent = String(Number(row.pasesAsignados) || 0);
             }
 
+            const tdPasesNinos = document.createElement("td");
+            tdPasesNinos.className = "pases-col";
+            if (isEditing) {
+                const pasesNinosInput = document.createElement("input");
+                pasesNinosInput.type = "number";
+                pasesNinosInput.className = "inline-input";
+                pasesNinosInput.min = "0";
+                pasesNinosInput.step = "1";
+                pasesNinosInput.value = String(normalizeChildPasses(draft.pasesNinos || row.pasesNinos));
+                pasesNinosInput.addEventListener("input", function () {
+                    if (!state.editDraft) return;
+                    state.editDraft.pasesNinos = Number(pasesNinosInput.value);
+                });
+                tdPasesNinos.appendChild(pasesNinosInput);
+            } else {
+                tdPasesNinos.textContent = normalizeChildPasses(row.pasesNinos) > 0
+                    ? String(normalizeChildPasses(row.pasesNinos))
+                    : "";
+            }
+
             const tdEstado = document.createElement("td");
             tdEstado.className = "status-col";
             const badgeMeta = getStatusBadgeMeta(row.respuesta);
@@ -1044,7 +1089,7 @@
             tdActions.className = "actions-cell";
             tdActions.appendChild(createActionsWrap(row, isEditing, "desktop"));
 
-            tr.append(tdId, tdNombre, tdPases, tdEstado, tdConfirmados, tdFecha, tdActions);
+            tr.append(tdId, tdNombre, tdPases, tdPasesNinos, tdEstado, tdConfirmados, tdFecha, tdActions);
             tbody.appendChild(tr);
         });
     }
@@ -1130,6 +1175,28 @@
                 linePases.replaceChildren(pasesLabel, pasesInput);
             }
 
+            const linePasesNinos = document.createElement("div");
+            linePasesNinos.className = "guest-card-line";
+            const pasesNinosLabel = document.createElement("span");
+            pasesNinosLabel.textContent = "Ninos";
+            const pasesNinosStrong = document.createElement("strong");
+            pasesNinosStrong.textContent = String(normalizeChildPasses(row.pasesNinos));
+            linePasesNinos.append(pasesNinosLabel, pasesNinosStrong);
+
+            if (isEditing) {
+                const pasesNinosInput = document.createElement("input");
+                pasesNinosInput.type = "number";
+                pasesNinosInput.className = "inline-input";
+                pasesNinosInput.min = "0";
+                pasesNinosInput.step = "1";
+                pasesNinosInput.value = String(normalizeChildPasses(draft.pasesNinos || row.pasesNinos));
+                pasesNinosInput.addEventListener("input", function () {
+                    if (!state.editDraft) return;
+                    state.editDraft.pasesNinos = Number(pasesNinosInput.value);
+                });
+                linePasesNinos.replaceChildren(pasesNinosLabel, pasesNinosInput);
+            }
+
             const lineConfirmed = document.createElement("div");
             lineConfirmed.className = "guest-card-line";
             const confirmedLabel = document.createElement("span");
@@ -1156,7 +1223,11 @@
             timeStrong.textContent = dateParts.time || "--";
             lineTime.append(timeLabel, timeStrong);
 
-            meta.append(linePases, lineConfirmed, lineDate, lineTime);
+            meta.append(linePases);
+            if (isEditing || normalizeChildPasses(row.pasesNinos) > 0) {
+                meta.append(linePasesNinos);
+            }
+            meta.append(lineConfirmed, lineDate, lineTime);
 
             const actions = document.createElement("div");
             actions.className = "guest-card-actions";
@@ -1200,13 +1271,14 @@
         const rows = state.rows || [];
         if (rows.length === 0) return;
 
-        const headers = ["Nombre", "Pases", "Respuesta", "Confirmados", "Fecha"];
+        const headers = ["Nombre", "Pases", "Ninos", "Respuesta", "Confirmados", "Fecha"];
         const lines = [headers.map(escapeCsvCell).join(",")];
 
         rows.forEach(function (row) {
             lines.push([
                 row.nombre || "",
                 String(Number(row.pasesAsignados) || 0),
+                String(normalizeChildPasses(row.pasesNinos)),
                 labelResponse(row.respuesta),
                 row.respuesta === "si"
                     ? String(Number(row.cantidadConfirmada) || 0)
@@ -1239,11 +1311,13 @@
 
         const nameInput = getEl("invite-name");
         const pasesInput = getEl("invite-pases");
+        const childPasesInput = getEl("invite-child-pases");
         const activeInput = getEl("invite-active");
         const saveBtn = getEl("btn-save-invite");
 
         const nombre = String(nameInput && nameInput.value || "").trim();
         const pases = Number(pasesInput && pasesInput.value);
+        const pasesNinos = normalizeChildPasses(childPasesInput && childPasesInput.value);
         const activo = Boolean(activeInput && activeInput.checked);
 
         if (!nombre) {
@@ -1260,6 +1334,7 @@
             id: createGuestId(),
             nombre,
             pases,
+            pasesNinos,
             activo
         };
 

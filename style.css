@@ -1004,9 +1004,9 @@ a{
   border-color: #426031;
 }
 
-#btnRsvpSi:hover {
+#btnRsvpNo:hover {
   background: #426031;
-  color: #fff;
+  color: #426031;
   border-color: #426031;
 }
 
@@ -3208,7 +3208,7 @@ section.is-visible .btn-outline:nth-of-type(2) {
   box-shadow: 0 10px 18px rgba(0, 0, 0, 0.14) !important;
 }
 
-#btnRsvpSi:hover {
+#btnRsvpNo:hover {
   border: 0 !important;
   background: transparent !important;
   color: #426031 !important;
@@ -3236,8 +3236,8 @@ section.is-visible .btn-outline:nth-of-type(2) {
 
 #btnRsvpNo:hover,
 #btnConfirmarRsvp:hover {
-  border-bottom-color: #000 !important;
-  background: transparent !important;
+  border-bottom-color: #426031 !important;
+  background: #426031 !important;
   color: #000 !important;
   box-shadow: 0 14px 22px rgba(0, 0, 0, 0.18) !important;
   transform: translateY(-1px) !important;
@@ -3352,9 +3352,9 @@ section.is-visible .btn-outline:nth-of-type(2) {
 }
 
 #btnRsvpSi:hover {
-  background: #c9a26a !important;
+  background: #426031 !important;
   color: #fff !important;
-  border-color: #c9a26a !important;
+  border-color: #426031 !important;
 }
 
 @media (max-width: 768px) {
@@ -3525,6 +3525,458 @@ section.is-visible .btn-outline:nth-of-type(2) {
   .wishes-section,
   .nochild-section {
     max-width: 860px;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1440px) {
+  .main-content {
+    max-width: 1240px;
+  }
+
+  .content {
+    width: min(100%, 1140px);
+    padding: 0 32px;
+  }
+
+  .photo-section {
+    width: min(100%, 1120px);
+    height: min(100svh, 860px);
+    min-height: 720px;
+  }
+
+  .photo-text--hero,
+  .photo-section--countdown .photo-text {
+    width: min(84vw, 820px);
+    text-align: center;
+  }
+
+  .photo-text--hero h1 {
+    font-size: clamp(48px, 4.7vw, 68px);
+    margin-top: -180px;
+  }
+
+  .photo-text--hero .hero-and {
+    font-size: clamp(30px, 2.3vw, 38px);
+  }
+
+  .photo-text--hero h2 {
+    font-size: clamp(26px, 2.4vw, 36px);
+  }
+
+  .photo-text--hero {
+    padding: 38px 56px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.14));
+    border: 1px solid rgba(255, 255, 255, 0.38);
+    border-radius: 28px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.14);
+    backdrop-filter: blur(8px);
+  }
+
+  .photo-section--countdown .title {
+    margin-top: -90px;
+    font-size: clamp(38px, 3.2vw, 52px);
+  }
+
+  .photo-section--countdown .photo-text {
+    padding: 42px 46px 36px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0.42));
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 28px;
+    box-shadow: 0 22px 56px rgba(0, 0, 0, 0.12);
+    backdrop-filter: blur(10px);
+  }
+
+  .photo-section--countdown .photo-text > p {
+    max-width: 680px;
+    font-size: 22px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .photo-section--countdown .countdown {
+    gap: 22px;
+  }
+
+  .photo-section--countdown .unit {
+    min-width: 118px;
+  }
+
+  .photo-section--countdown .number {
+    font-size: clamp(38px, 4.6vw, 58px);
+  }
+
+  .guest-summary-section,
+  .blessing {
+    width: min(100%, 860px);
+  }
+
+  .guest-summary-section {
+    margin-top: 28px;
+    padding: 28px 32px;
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.14);
+  }
+
+  .blessing {
+    padding: 54px 48px 56px;
+  }
+
+  .itinerary-section {
+    gap: 28px;
+    max-width: 1120px;
+    margin-top: 10px;
+  }
+
+  .itinerary-item {
+    padding: 48px 34px 40px;
+    background: rgba(255, 255, 255, 0.76);
+    border-radius: 28px;
+    box-shadow: 0 24px 56px rgba(0, 0, 0, 0.12);
+    backdrop-filter: blur(8px);
+  }
+
+  .itinerary-item .itinerary-details,
+  .itinerary-item > p,
+  .itinerary-item .location,
+  .itinerary-item .parking-note,
+  .itinerary-item .time-location {
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .photo-full,
+  .section-separator {
+    width: min(100%, 1120px);
+  }
+
+  .playlist-section,
+  .gifts-section,
+  .hotel-section,
+  .dresscode-section,
+  #weatherSection,
+  .gallery-section,
+  .rsvp-section,
+  .wishes-section,
+  .nochild-section {
+    padding-left: 40px !important;
+    padding-right: 40px !important;
+  }
+
+  .gallery-main img {
+    width: min(100%, 620px);
+    height: 700px;
+  }
+
+  .gallery-main {
+    margin-bottom: 20px;
+  }
+
+  .gallery-thumbs img {
+    width: 140px;
+    height: 180px;
+  }
+
+  .gallery-thumbs {
+    gap: 14px;
+  }
+
+  .modal {
+    width: min(82vw, 760px);
+    height: min(84vh, 820px);
+    padding: 24px;
+  }
+
+  .close {
+    top: 24px;
+    right: 24px;
+    font-size: 64px;
+  }
+}
+
+@media (min-width: 1441px) {
+  .main-content,
+  .content {
+    width: 100%;
+    max-width: none;
+  }
+
+  .content {
+    padding: 0 48px;
+  }
+
+  .contenedor-play {
+    margin-top: -130px;
+  }
+
+  #musicTitle,
+  .contenedor-play h1 {
+    font-size: 72px;
+  }
+
+  .photo-section,
+  .photo-full,
+  .section-separator,
+  .itinerary-section,
+  .guest-summary-section,
+  .blessing,
+  .playlist-section,
+  .gifts-section,
+  .hotel-section,
+  .dresscode-section,
+  #weatherSection,
+  .gallery-section,
+  .rsvp-section,
+  .wishes-section,
+  .nochild-section {
+    width: 100%;
+    max-width: none;
+  }
+
+  .photo-section,
+  .photo-full,
+  .section-separator,
+  .itinerary-section {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .photo-section {
+    width: 100vw;
+    height: 100vh;
+    min-height: 900px;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+  }
+
+  .photo-section .photo-container,
+  .photo-section .photo,
+  .photo-section .photo-container img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .photo-section .photo,
+  .photo-section .photo-container img,
+  .photo-full img {
+    object-fit: cover;
+  }
+
+  .photo-full {
+    width: 100vw;
+    min-height: 100vh;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+  }
+
+  .photo-full img {
+    width: 100%;
+    height: 100vh;
+    min-height: 900px;
+  }
+
+  .photo-text--hero,
+  .photo-section--countdown .photo-text {
+    width: min(72vw, 1120px);
+  }
+
+  .photo-section--countdown .title {
+    text-transform: none;
+  }
+
+  .guest-summary-section #guest-name {
+    font-size: 38px !important;
+  }
+
+  .guest-summary-section .guest-passes {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    font-size: 28px !important;
+    margin-top: 4px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .guest-summary-section .guest-passes #passes {
+    display: inline;
+    font-size: 32px;
+  }
+
+  .guest-summary-section .guest-passes i {
+    font-size: 24px;
+  }
+
+  .blessing {
+    text-align: center;
+  }
+
+  .blessing h3 {
+    font-size: 46px;
+    margin-bottom: 30px;
+    text-transform: none;
+  }
+
+  .parents {
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+  }
+
+  .parents p {
+    max-width: 100%;
+    padding: 20px 12px;
+    font-size: 32px;
+  }
+
+  .parent-name {
+    font-size: 42px;
+  }
+
+  .itinerary-section {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 48px;
+    padding-left: 48px;
+    padding-right: 48px;
+    align-items: stretch;
+  }
+
+  .itinerary-item {
+    min-height: 100%;
+    padding: 56px 38px 48px;
+    max-width: 900px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 18px;
+  }
+
+  .itinerary-item h2 {
+    font-size: 50px !important;
+    margin-bottom: 14px !important;
+  }
+
+  .itinerary-item > p,
+  .itinerary-item p,
+  .time-location .date,
+  .time-location .separator,
+  .time-location .time {
+    font-size: 28px !important;
+  }
+
+  .itinerary-item .location {
+    font-size: 21px !important;
+    line-height: 1.6 !important;
+  }
+
+  .itinerary-item .parking-note {
+    font-size: 16px !important;
+  }
+
+  .itinerary-item .btn-venue {
+    margin-top: 16px;
+  }
+
+  .dresscode-section {
+    margin-top: 56px;
+  }
+
+  .gallery-thumbs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    width: min(100%, 900px);
+    margin: 42px auto 0;
+  }
+
+  .gallery-thumbs img {
+    width: 100%;
+    height: 320px;
+  }
+
+  .hotel-section,
+  .hotel-info-box,
+  .hotel-links,
+  .hotel-selector {
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hotel-info-box {
+    max-width: 760px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .blessing h3,
+  .itinerary-item h2,
+  .hotel-section h2,
+  .dresscode-section h2,
+  .gallery-section h2,
+  .playlist-section h2,
+  .gifts-section h2,
+  .wishes-section h2,
+  #weatherSection h3,
+  .rsvp-section h2,
+  .nochild-section h2 {
+    font-size: 50px !important;
+  }
+
+  .parents p,
+  .hotel-intro,
+  .hotel-distance,
+  .hotel-description,
+  .hotel-address,
+  .dresscode-section .venue-title,
+  .dresscode-section .dress-note,
+  .playlist-section p,
+  .gifts-section p,
+  .wishes-section p,
+  .rsvp-section p,
+  .nochild-section p,
+  .weather-tip,
+  .weather-state,
+  .weather-temp,
+  .weather-meta p {
+    font-size: 24px !important;
+  }
+
+  .parent-name {
+    font-size: 46px;
+  }
+
+  .guest-summary-section #guest-name {
+    font-size: 42px !important;
+  }
+
+  .guest-summary-section .guest-passes,
+  .guest-summary-section .guest-passes #passes {
+    font-size: 32px !important;
+  }
+
+  .hotel-address,
+  .hotel-distance,
+  .hotel-description,
+  .hotel-intro {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: center !important;
+  }
+
+  .playlist-section,
+  .gifts-section,
+  .hotel-section,
+  .dresscode-section,
+  #weatherSection,
+  .gallery-section,
+  .rsvp-section,
+  .wishes-section,
+  .nochild-section,
+  .guest-summary-section,
+  .blessing {
+    padding-left: 48px;
+    padding-right: 48px;
   }
 }
 

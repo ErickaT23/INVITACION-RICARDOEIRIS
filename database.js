@@ -377,6 +377,7 @@ function normalizeLocalGuestsSource(source) {
           id,
           nombre: String(guest.nombre || "").trim() || "Invitado",
           pases: Math.max(1, Number(guest.pases) || 1),
+          pasesNinos: normalizeChildPasses(guest.pasesNinos || guest.childPasses),
           activo: typeof guest.activo === "undefined" ? true : Boolean(guest.activo)
         };
       })
@@ -394,6 +395,7 @@ function normalizeLocalGuestsSource(source) {
           id,
           nombre: String(guest.nombre || "").trim() || "Invitado",
           pases: Math.max(1, Number(guest.pases) || 1),
+          pasesNinos: normalizeChildPasses(guest.pasesNinos || guest.childPasses),
           activo: typeof guest.activo === "undefined" ? true : Boolean(guest.activo)
         };
       })
@@ -425,6 +427,10 @@ function resolveLocalGuestsSource(eventId, explicitSource) {
 
 function sanitizeText(value) {
   return String(value == null ? "" : value).trim();
+}
+
+function normalizeChildPasses(value) {
+  return Math.max(0, Number(value) || 0);
 }
 
 function sanitizeTextForFingerprint(value) {
@@ -582,6 +588,8 @@ async function saveConfirmation(arg1, arg2) {
     id: guestId,
     nombre: String((payload && payload.nombre) || ""),
     pasesAsignados: Number((payload && payload.pasesAsignados) || 0),
+    adultosConfirmados: Math.max(0, Number((payload && payload.adultosConfirmados) || 0)),
+    ninosConfirmados: Math.max(0, Number((payload && payload.ninosConfirmados) || 0)),
     respuesta: payload && payload.respuesta === "no" ? "no" : "si",
     cantidadConfirmada: Number((payload && payload.cantidadConfirmada) || 0),
     confirmado: true,
@@ -829,7 +837,8 @@ async function getInvitadoById(arg1, arg2) {
 
     return {
       ...data,
-      id: String(data.id || guestId || safeGuestId)
+      id: String(data.id || guestId || safeGuestId),
+      pasesNinos: normalizeChildPasses(data.pasesNinos || data.childPasses)
     };
   } catch (error) {
     console.warn("No se pudo leer invitado por id del evento:", error);
@@ -845,6 +854,7 @@ async function createInvitado(arg1, arg2) {
   const id = String(payload.id || ("guest_" + Date.now())).trim() || ("guest_" + Date.now());
   const nombre = sanitizeText(payload.nombre);
   const pases = Math.max(1, Number(payload.pases) || 1);
+  const pasesNinos = normalizeChildPasses(payload.pasesNinos || payload.childPasses);
   const activo = typeof payload.activo === "undefined" ? true : Boolean(payload.activo);
 
   if (!nombre) {
@@ -856,6 +866,7 @@ async function createInvitado(arg1, arg2) {
     id,
     nombre,
     pases,
+    pasesNinos,
     activo
   };
 
@@ -874,6 +885,7 @@ async function updateInvitado(arg1, arg2, arg3) {
 
   const nombre = sanitizeText(payload.nombre);
   const pases = Math.max(1, Number(payload.pases) || 1);
+  const pasesNinos = normalizeChildPasses(payload.pasesNinos || payload.childPasses);
   const activo = typeof payload.activo === "undefined" ? true : Boolean(payload.activo);
 
   if (!nombre) {
@@ -885,6 +897,7 @@ async function updateInvitado(arg1, arg2, arg3) {
     id: guestId,
     nombre,
     pases,
+    pasesNinos,
     activo
   };
 
@@ -913,11 +926,38 @@ async function deleteInvitado(arg1, arg2) {
     id: String(current.id || guestId),
     nombre: sanitizeText(current.nombre) || "Invitado",
     pases: Math.max(1, Number(current.pases) || 1),
+    pasesNinos: normalizeChildPasses(current.pasesNinos || current.childPasses),
     activo: false
   };
 
   await set(targetRef, updatedRecord);
   return { ok: true, id: guestId, deactivated: true };
+}
+
+async function replaceInvitados(arg1, arg2) {
+  const parsed = parseEventAndPayloadArgs(arg1, arg2);
+  const eventId = parsed.eventId;
+  const payload = parsed.payload;
+  const guests = normalizeLocalGuestsSource(payload);
+  const nextInvitados = {};
+
+  guests.forEach(function (guest) {
+    const safeGuestId = sanitizeFirebaseKey(guest.id);
+    nextInvitados[safeGuestId] = {
+      id: String(guest.id),
+      nombre: String(guest.nombre || "").trim() || "Invitado",
+      pases: Math.max(1, Number(guest.pases) || 1),
+      pasesNinos: normalizeChildPasses(guest.pasesNinos || guest.childPasses),
+      activo: typeof guest.activo === "undefined" ? true : Boolean(guest.activo)
+    };
+  });
+
+  await set(ref(db, getEventInvitadosPath(eventId)), nextInvitados);
+  return {
+    ok: true,
+    eventId: resolveEventId(eventId),
+    total: guests.length
+  };
 }
 
 function subscribeToInvitados(arg1, arg2, arg3) {
@@ -981,6 +1021,7 @@ async function migrateLocalGuestsToFirebase(arg1, arg2, arg3) {
           id: String(guest.id),
           nombre: String(guest.nombre || "").trim(),
           pases: Math.max(1, Number(guest.pases) || 1),
+          pasesNinos: normalizeChildPasses(guest.pasesNinos || guest.childPasses),
           activo: typeof guest.activo === "undefined" ? true : Boolean(guest.activo)
         });
       })
@@ -1430,6 +1471,7 @@ window.RSVPDatabase = {
   createInvitado,
   updateInvitado,
   deleteInvitado,
+  replaceInvitados,
   migrateLocalGuestsToFirebase,
   clearGuestsMigrationMark,
   seedEventConfigToFirebase,
@@ -1473,6 +1515,7 @@ export {
   createInvitado,
   updateInvitado,
   deleteInvitado,
+  replaceInvitados,
   migrateLocalGuestsToFirebase,
   clearGuestsMigrationMark,
   seedEventConfigToFirebase,

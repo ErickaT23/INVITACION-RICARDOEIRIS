@@ -49,7 +49,8 @@ function mapInvitadosToDirectory(invitados) {
 
         directory[id] = {
             nombre: String(invitado.nombre || "").trim() || "Invitado",
-            pases: Math.max(0, Number(invitado.pases) || 0)
+            pases: Math.max(0, Number(invitado.pases) || 0),
+            pasesNinos: Math.max(0, Number(invitado.pasesNinos || invitado.childPasses) || 0)
         };
     });
 
@@ -102,6 +103,7 @@ function buildRows(confirmations, guestDirectory) {
                 id,
                 nombre: String(guest.nombre || ""),
                 pasesAsignados: Math.max(0, Number(guest.pases) || 0),
+                pasesNinos: Math.max(0, Number(guest.pasesNinos) || 0),
                 respuesta: "pendiente",
                 cantidadConfirmada: 0,
                 fechaConfirmacion: null
@@ -111,14 +113,18 @@ function buildRows(confirmations, guestDirectory) {
 
         rows.push({
             ...confirmation,
-            nombre: confirmation.nombre || String(guest.nombre || ""),
-            pasesAsignados: confirmation.pasesAsignados || Math.max(0, Number(guest.pases) || 0)
+            nombre: String(guest.nombre || ""),
+            pasesAsignados: Math.max(0, Number(guest.pases) || 0),
+            pasesNinos: Math.max(0, Number(guest.pasesNinos) || 0)
         });
     });
 
     confirmationById.forEach((confirmation, id) => {
         if (configuredIds.includes(id)) return;
-        rows.push(confirmation);
+        rows.push({
+            ...confirmation,
+            pasesNinos: 0
+        });
     });
 
     return rows.sort((a, b) => compareGuestIds(a && a.id, b && b.id));
@@ -220,6 +226,7 @@ function buildCsvContent(rows) {
     const headers = [
         "Nombre",
         "Pases asignados",
+        "Ninos",
         "Respuesta",
         "Cantidad confirmada",
         "Fecha de confirmación"
@@ -232,6 +239,7 @@ function buildCsvContent(rows) {
         const line = [
             row.nombre || "--",
             String(Number(row.pasesAsignados) || 0),
+            String(Math.max(0, Number(row.pasesNinos) || 0)),
             toResponseLabel(responseValue),
             responseValue === "pendiente" ? "--" : String(Number(row.cantidadConfirmada) || 0),
             responseValue === "pendiente" ? "--" : formatConfirmationDate(row.fechaConfirmacion)
@@ -291,7 +299,7 @@ function renderDesktopTable(rows, emptyMessage) {
 
     if (!Array.isArray(rows) || rows.length === 0) {
         const message = emptyMessage || "No hay confirmaciones para mostrar.";
-        tableBody.innerHTML = '<tr><td class="empty-state" colspan="6">' + message + "</td></tr>";
+        tableBody.innerHTML = '<tr><td class="empty-state" colspan="7">' + message + "</td></tr>";
         return;
     }
 
@@ -310,6 +318,11 @@ function renderDesktopTable(rows, emptyMessage) {
 
         const assignedTd = document.createElement("td");
         assignedTd.textContent = String(Number(row.pasesAsignados) || 0);
+
+        const childAssignedTd = document.createElement("td");
+        childAssignedTd.textContent = Number(row.pasesNinos) > 0
+            ? String(Number(row.pasesNinos) || 0)
+            : "";
 
         const responseTd = document.createElement("td");
         const badge = document.createElement("span");
@@ -336,7 +349,7 @@ function renderDesktopTable(rows, emptyMessage) {
         dateSub.textContent = dateParts.time;
         dateTd.append(dateMain, dateSub);
 
-        tr.append(idTd, nameTd, assignedTd, responseTd, confirmedTd, dateTd);
+        tr.append(idTd, nameTd, assignedTd, childAssignedTd, responseTd, confirmedTd, dateTd);
         tableBody.appendChild(tr);
     });
 }
@@ -391,6 +404,14 @@ function renderMobileCards(rows, emptyMessage) {
         assignedValue.textContent = String(Number(row.pasesAsignados) || 0);
         lineAssigned.append(assignedLabel, assignedValue);
 
+        const lineChildAssigned = document.createElement("div");
+        lineChildAssigned.className = "confirmation-card-line";
+        const childAssignedLabel = document.createElement("span");
+        childAssignedLabel.textContent = "Ninos";
+        const childAssignedValue = document.createElement("strong");
+        childAssignedValue.textContent = String(Number(row.pasesNinos) || 0);
+        lineChildAssigned.append(childAssignedLabel, childAssignedValue);
+
         const lineConfirmed = document.createElement("div");
         lineConfirmed.className = "confirmation-card-line";
         const confirmedLabel = document.createElement("span");
@@ -417,7 +438,9 @@ function renderMobileCards(rows, emptyMessage) {
         timeValue.textContent = dateParts.time;
         lineTime.append(timeLabel, timeValue);
 
-        details.append(lineAssigned, lineConfirmed, lineDate, lineTime);
+        details.append(lineAssigned);
+        if (Number(row.pasesNinos) > 0) details.append(lineChildAssigned);
+        details.append(lineConfirmed, lineDate, lineTime);
         card.append(nameEl, statusWrap, details);
         mobileList.appendChild(card);
     });
