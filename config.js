@@ -44,7 +44,7 @@ const config = {
             titulo: "Recepción",
             lugar: "Casa Nicolasa",
             hora: "6:00 PM",
-            direccion: "San Jorge Muxbal, Cdad. de Guatemala",
+            direccion: "San Jorge Múxbal, Cdad. de Guatemala",
             ubicacionUrl: "https://ul.waze.com/ul?venue_id=176685201.1766589871.2225917&overview=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location"
         }
     },
