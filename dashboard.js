@@ -71,6 +71,8 @@ function normalizeResponse(response) {
 
 function normalizeConfirmation(record) {
     const response = normalizeResponse(record && record.respuesta);
+    const hasAdultBreakdown = record && record.adultosConfirmados != null;
+    const hasChildBreakdown = record && record.ninosConfirmados != null;
     return {
         id: normalizeGuestId(record && (record.id || record._key)),
         nombre: String(record && record.nombre || ""),
@@ -79,6 +81,12 @@ function normalizeConfirmation(record) {
         cantidadConfirmada: response === "si"
             ? Math.max(0, Number(record && record.cantidadConfirmada) || 0)
             : 0,
+        adultosConfirmados: hasAdultBreakdown
+            ? Math.max(0, Number(record.adultosConfirmados) || 0)
+            : null,
+        ninosConfirmados: hasChildBreakdown
+            ? Math.max(0, Number(record.ninosConfirmados) || 0)
+            : null,
         fechaConfirmacion: Number(record && record.fechaConfirmacion) || null
     };
 }
@@ -175,6 +183,26 @@ function toResponseLabel(response) {
     return "pendiente";
 }
 
+function getConfirmationBreakdown(row) {
+    if (!row || row.respuesta !== "si") {
+        return { adults: 0, children: 0, total: 0 };
+    }
+
+    const total = Math.max(0, Number(row.cantidadConfirmada) || 0);
+    const maxAdults = Math.max(0, Number(row.pasesAsignados) || 0);
+    const maxChildren = Math.max(0, Number(row.pasesNinos) || 0);
+    const hasAdults = row.adultosConfirmados != null;
+    const hasChildren = row.ninosConfirmados != null;
+    const adults = hasAdults
+        ? Math.max(0, Number(row.adultosConfirmados) || 0)
+        : Math.min(Math.max(0, total - (Number(row.ninosConfirmados) || 0)), maxAdults);
+    const children = hasChildren
+        ? Math.max(0, Number(row.ninosConfirmados) || 0)
+        : Math.min(Math.max(0, total - adults), maxChildren);
+
+    return { adults, children, total };
+}
+
 function normalizeSearchText(value) {
     return String(value || "")
         .normalize("NFD")
@@ -225,10 +253,12 @@ function escapeCsvCell(value) {
 function buildCsvContent(rows) {
     const headers = [
         "Nombre",
-        "Pases asignados",
-        "Ninos",
+        "Adultos asignados",
+        "Ninos asignados",
         "Respuesta",
-        "Cantidad confirmada",
+        "Adultos confirmados",
+        "Ninos confirmados",
+        "Total confirmado",
         "Fecha de confirmación"
     ];
 
@@ -236,12 +266,15 @@ function buildCsvContent(rows) {
 
     rows.forEach((row) => {
         const responseValue = row.respuesta === "si" || row.respuesta === "no" ? row.respuesta : "pendiente";
+        const breakdown = getConfirmationBreakdown(row);
         const line = [
             row.nombre || "--",
             String(Number(row.pasesAsignados) || 0),
             String(Math.max(0, Number(row.pasesNinos) || 0)),
             toResponseLabel(responseValue),
-            responseValue === "pendiente" ? "--" : String(Number(row.cantidadConfirmada) || 0),
+            responseValue === "pendiente" ? "--" : String(breakdown.adults),
+            responseValue === "pendiente" ? "--" : String(breakdown.children),
+            responseValue === "pendiente" ? "--" : String(breakdown.total),
             responseValue === "pendiente" ? "--" : formatConfirmationDate(row.fechaConfirmacion)
         ];
         lines.push(line.map(escapeCsvCell).join(","));
@@ -332,9 +365,13 @@ function renderDesktopTable(rows, emptyMessage) {
         responseTd.appendChild(badge);
 
         const confirmedTd = document.createElement("td");
-        confirmedTd.textContent = responseValue === "pendiente"
-            ? "--"
-            : String(Number(row.cantidadConfirmada) || 0);
+        const breakdown = getConfirmationBreakdown(row);
+        if (responseValue === "pendiente") {
+            confirmedTd.textContent = "--";
+        } else {
+            confirmedTd.textContent = breakdown.adults + " adultos / "
+                + breakdown.children + " ninos (" + breakdown.total + " total)";
+        }
 
         const dateTd = document.createElement("td");
         dateTd.className = "date-cell";
@@ -399,7 +436,7 @@ function renderMobileCards(rows, emptyMessage) {
         const lineAssigned = document.createElement("div");
         lineAssigned.className = "confirmation-card-line";
         const assignedLabel = document.createElement("span");
-        assignedLabel.textContent = "Pases";
+        assignedLabel.textContent = "Adultos asignados";
         const assignedValue = document.createElement("strong");
         assignedValue.textContent = String(Number(row.pasesAsignados) || 0);
         lineAssigned.append(assignedLabel, assignedValue);
@@ -407,20 +444,41 @@ function renderMobileCards(rows, emptyMessage) {
         const lineChildAssigned = document.createElement("div");
         lineChildAssigned.className = "confirmation-card-line";
         const childAssignedLabel = document.createElement("span");
-        childAssignedLabel.textContent = "Ninos";
+        childAssignedLabel.textContent = "Ninos asignados";
         const childAssignedValue = document.createElement("strong");
         childAssignedValue.textContent = String(Number(row.pasesNinos) || 0);
         lineChildAssigned.append(childAssignedLabel, childAssignedValue);
 
-        const lineConfirmed = document.createElement("div");
-        lineConfirmed.className = "confirmation-card-line";
-        const confirmedLabel = document.createElement("span");
-        confirmedLabel.textContent = "Pases confirmados";
-        const confirmedValue = document.createElement("strong");
-        confirmedValue.textContent = responseValue === "pendiente"
+        const breakdown = getConfirmationBreakdown(row);
+        const lineAdultsConfirmed = document.createElement("div");
+        lineAdultsConfirmed.className = "confirmation-card-line";
+        const adultsConfirmedLabel = document.createElement("span");
+        adultsConfirmedLabel.textContent = "Adultos confirmados";
+        const adultsConfirmedValue = document.createElement("strong");
+        adultsConfirmedValue.textContent = responseValue === "pendiente"
             ? "--"
-            : String(Number(row.cantidadConfirmada) || 0);
-        lineConfirmed.append(confirmedLabel, confirmedValue);
+            : String(breakdown.adults);
+        lineAdultsConfirmed.append(adultsConfirmedLabel, adultsConfirmedValue);
+
+        const lineChildrenConfirmed = document.createElement("div");
+        lineChildrenConfirmed.className = "confirmation-card-line";
+        const childrenConfirmedLabel = document.createElement("span");
+        childrenConfirmedLabel.textContent = "Ninos confirmados";
+        const childrenConfirmedValue = document.createElement("strong");
+        childrenConfirmedValue.textContent = responseValue === "pendiente"
+            ? "--"
+            : String(breakdown.children);
+        lineChildrenConfirmed.append(childrenConfirmedLabel, childrenConfirmedValue);
+
+        const lineTotalConfirmed = document.createElement("div");
+        lineTotalConfirmed.className = "confirmation-card-line";
+        const totalConfirmedLabel = document.createElement("span");
+        totalConfirmedLabel.textContent = "Total confirmado";
+        const totalConfirmedValue = document.createElement("strong");
+        totalConfirmedValue.textContent = responseValue === "pendiente"
+            ? "--"
+            : String(breakdown.total);
+        lineTotalConfirmed.append(totalConfirmedLabel, totalConfirmedValue);
 
         const lineDate = document.createElement("div");
         lineDate.className = "confirmation-card-line";
@@ -440,7 +498,7 @@ function renderMobileCards(rows, emptyMessage) {
 
         details.append(lineAssigned);
         if (Number(row.pasesNinos) > 0) details.append(lineChildAssigned);
-        details.append(lineConfirmed, lineDate, lineTime);
+        details.append(lineAdultsConfirmed, lineChildrenConfirmed, lineTotalConfirmed, lineDate, lineTime);
         card.append(nameEl, statusWrap, details);
         mobileList.appendChild(card);
     });
